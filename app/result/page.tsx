@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 type MenuItem = {
@@ -18,7 +18,7 @@ type MenuItem = {
 
 type BaseMenuItem = Omit<MenuItem, "id" | "createdAt">;
 
-export default function ResultPage() {
+function ResultContent() {
   const searchParams = useSearchParams();
 
   const familySize = searchParams.get("familySize") || "3";
@@ -722,5 +722,24 @@ export default function ResultPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-[#fffaf5] px-6 py-10 text-gray-700">
+          <div className="mx-auto max-w-3xl rounded-[32px] bg-white p-8 shadow-sm">
+            <p className="text-lg font-semibold text-gray-800">読み込み中...</p>
+            <p className="mt-2 text-sm text-gray-600">
+              献立候補を準備しています。
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <ResultContent />
+    </Suspense>
   );
 }
