@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const CREATE_DRAFT_KEY = "menuCreateDraft";
 
 export default function CreatePage() {
   const [familySize, setFamilySize] = useState("3");
@@ -8,6 +10,61 @@ export default function CreatePage() {
   const [budgetLevel, setBudgetLevel] = useState("ふつう");
   const [avoidIngredients, setAvoidIngredients] = useState("");
   const [mood, setMood] = useState("おまかせ");
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // 初回表示時に保存済みの入力内容を復元
+  useEffect(() => {
+    try {
+      const savedDraft = localStorage.getItem(CREATE_DRAFT_KEY);
+
+      if (savedDraft) {
+        const parsed = JSON.parse(savedDraft);
+
+        setFamilySize(parsed.familySize ?? "3");
+        setCookingTime(parsed.cookingTime ?? "30");
+        setBudgetLevel(parsed.budgetLevel ?? "ふつう");
+        setAvoidIngredients(parsed.avoidIngredients ?? "");
+        setMood(parsed.mood ?? "おまかせ");
+      }
+    } catch (error) {
+      console.error("入力内容の復元に失敗しました", error);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  // 入力が変わるたびに自動保存
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    try {
+      const draftData = {
+        familySize,
+        cookingTime,
+        budgetLevel,
+        avoidIngredients,
+        mood,
+      };
+
+      localStorage.setItem(CREATE_DRAFT_KEY, JSON.stringify(draftData));
+    } catch (error) {
+      console.error("入力内容の保存に失敗しました", error);
+    }
+  }, [familySize, cookingTime, budgetLevel, avoidIngredients, mood, isLoaded]);
+
+  const handleReset = () => {
+    try {
+      localStorage.removeItem(CREATE_DRAFT_KEY);
+    } catch (error) {
+      console.error("入力内容の削除に失敗しました", error);
+    }
+
+    setFamilySize("3");
+    setCookingTime("30");
+    setBudgetLevel("ふつう");
+    setAvoidIngredients("");
+    setMood("おまかせ");
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +79,18 @@ export default function CreatePage() {
 
     window.location.href = `/result?${params.toString()}`;
   };
+
+  if (!isLoaded) {
+    return (
+      <main className="min-h-screen bg-[#fffaf5] px-6 py-10 text-gray-700">
+        <div className="mx-auto max-w-2xl">
+          <div className="rounded-[32px] bg-white p-8 shadow-sm">
+            <p className="text-sm text-gray-600">読み込み中...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#fffaf5] px-6 py-10 text-gray-700">
@@ -126,12 +195,22 @@ export default function CreatePage() {
               </select>
             </div>
 
-            <button
-              type="submit"
-              className="w-full rounded-full bg-pink-300 px-6 py-4 text-lg font-bold text-white shadow-md transition hover:scale-[1.01] hover:bg-pink-400"
-            >
-              献立候補を見る
-            </button>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="submit"
+                className="w-full rounded-full bg-pink-300 px-6 py-4 text-lg font-bold text-white shadow-md transition hover:scale-[1.01] hover:bg-pink-400"
+              >
+                献立候補を見る
+              </button>
+
+              <button
+                type="button"
+                onClick={handleReset}
+                className="w-full rounded-full bg-gray-200 px-6 py-4 text-lg font-bold text-gray-700 transition hover:bg-gray-300"
+              >
+                入力をリセット
+              </button>
+            </div>
           </form>
         </div>
       </div>
