@@ -128,6 +128,7 @@ export default function CreatePage() {
                 onChange={(e) => setFamilySize(e.target.value)}
                 className="w-full rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3 outline-none focus:border-pink-300"
               >
+                <option value="1">1人</option>
                 <option value="2">2人</option>
                 <option value="3">3人</option>
                 <option value="4">4人</option>
