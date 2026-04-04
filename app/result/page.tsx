@@ -18,12 +18,13 @@ type MenuItem = {
     shoppingList?: ShoppingListItem[];
     createdAt: string;
     sourceConditions: {
-      familySize: string;
-      cookingTime: string;
-      budgetLevel: string;
-      avoidIngredients: string;
-      mood: string;
-    };
+        familySize: string;
+        cookingTime: string;
+        budgetLevel: string;
+        avoidIngredients: string;
+        preferredIngredients: string;
+        mood: string;
+      };
   };
 
   type GeneratedMenuFromAI = {
@@ -73,6 +74,8 @@ type MenuItem = {
 
 function ResultContent() {
   const searchParams = useSearchParams();
+  const viewMode = searchParams.get("view") || "";
+const isDecidedView = viewMode === "decided";
   const router = useRouter();
 
   const familySize = searchParams.get("familySize") || "3";
@@ -80,6 +83,7 @@ function ResultContent() {
   const budgetLevel = searchParams.get("budgetLevel") || "ふつう";
   const avoidIngredients = searchParams.get("avoidIngredients") || "";
   const mood = searchParams.get("mood") || "おまかせ";
+  const preferredIngredients = searchParams.get("preferredIngredients") || "";
 
   const [refreshCount, setRefreshCount] = useState(0);
 const [menus, setMenus] = useState<MenuItem[]>([]);
@@ -97,6 +101,40 @@ const [usedFallback, setUsedFallback] = useState(false);
 const [recipeStepsMap, setRecipeStepsMap] = useState<Record<string, RecipeSteps>>({});
 const [loadingRecipeId, setLoadingRecipeId] = useState("");
 const [toast, setToast] = useState<ToastState>(null);
+const [decidedMenuKey, setDecidedMenuKey] = useState("");
+
+const getMenuDecisionKey = (menu: MenuItem) => {
+  return `${menu.title}__${menu.mainDish}__${menu.sideDish}__${menu.soup}`;
+};
+
+
+  
+const handleDecideMenu = (menu: MenuItem) => {
+    try {
+      const nextKey = getMenuDecisionKey(menu);
+  
+      if (decidedMenuKey === nextKey) {
+        localStorage.removeItem("decidedDinnerMenu");
+        setDecidedMenuKey("");
+        showToast("献立の決定を解除しました", "success");
+        return;
+      }
+  
+      localStorage.setItem(
+        "decidedDinnerMenu",
+        JSON.stringify({
+          key: nextKey,
+          menu,
+        })
+      );
+  
+      setDecidedMenuKey(nextKey);
+      showToast("今日の献立を決定しました", "success");
+    } catch (error) {
+      console.error(error);
+      showToast("献立の決定に失敗しました", "error");
+    }
+  };
 
     const dishOptions = useMemo<
   Record<
@@ -363,6 +401,11 @@ const [toast, setToast] = useState<ToastState>(null);
             .map((item) => item.trim())
             .filter(Boolean);
 
+            const preferredIngredientList = preferredIngredients
+  .split(/[、,\s]+/)
+  .map((item) => item.trim())
+  .filter(Boolean);
+
           const generateMenus = (): MenuItem[] => {
             const now = new Date().toISOString();
             const selectedMood = dishOptions[mood] || dishOptions["おまかせ"];
@@ -371,6 +414,10 @@ const [toast, setToast] = useState<ToastState>(null);
             const filteredMainDishes = selectedMood.mainDishes.filter((dish) => {
                 return !dish.tags.some((tag) => avoidIngredientList.includes(tag));
               });
+
+              const preferredMainDishes = filteredMainDishes.filter((dish) =>
+                dish.tags.some((tag) => preferredIngredientList.includes(tag))
+              );
               
               if (filteredMainDishes.length === 0) {
                 return [];
@@ -382,10 +429,28 @@ const [toast, setToast] = useState<ToastState>(null);
               const filteredSideDishes = normalizedSideDishes.filter((dish) => {
                 return !dish.tags.some((tag) => avoidIngredientList.includes(tag));
               });
-              
+
               const filteredSoups = normalizedSoups.filter((soup) => {
                 return !soup.tags.some((tag) => avoidIngredientList.includes(tag));
               });
+
+              const preferredSideDishes = filteredSideDishes.filter((dish) =>
+                dish.tags.some((tag) => preferredIngredientList.includes(tag))
+              );
+              
+              const preferredSoups = filteredSoups.filter((soup) =>
+                soup.tags.some((tag) => preferredIngredientList.includes(tag))
+              );
+              
+              const hasPreferredMatch =
+                preferredIngredientList.length === 0 ||
+                preferredMainDishes.length > 0 ||
+                preferredSideDishes.length > 0 ||
+                preferredSoups.length > 0;
+
+                if (!hasPreferredMatch) {
+                return [];
+                }
               
               if (filteredSideDishes.length === 0 || filteredSoups.length === 0) {
                 return [];
@@ -414,10 +479,20 @@ const [toast, setToast] = useState<ToastState>(null);
               let combinationKey = "";
           
               do {
-                const selectedMainDish = getRandomItem(filteredMainDishes);
+                const mainSource =
+                  preferredMainDishes.length > 0 ? preferredMainDishes : filteredMainDishes;
+                const sideSource =
+                  preferredSideDishes.length > 0 ? preferredSideDishes : filteredSideDishes;
+                const soupSource =
+                  preferredSoups.length > 0 ? preferredSoups : filteredSoups;
+              
+                const selectedMainDish = getRandomItem(mainSource);
+                const selectedSideDish = getRandomItem(sideSource);
+                const selectedSoup = getRandomItem(soupSource);
+              
                 mainDish = selectedMainDish.name;
-                sideDish = getRandomItem(filteredSideDishes).name;
-                soup = getRandomItem(filteredSoups).name;
+                sideDish = selectedSideDish.name;
+                soup = selectedSoup.name;
                 combinationKey = `${mainDish}-${sideDish}-${soup}`;
               } while (usedCombinations.has(combinationKey));
           
@@ -438,12 +513,13 @@ const [toast, setToast] = useState<ToastState>(null);
                   : "今の条件に合わせて、組み合わせで作った献立です。",
                 createdAt: now,
                 sourceConditions: {
-                  familySize,
-                  cookingTime,
-                  budgetLevel,
-                  avoidIngredients,
-                  mood,
-                },
+                    familySize,
+                    cookingTime,
+                    budgetLevel,
+                    avoidIngredients,
+                    preferredIngredients,
+                    mood,
+                  },
               };
             });
           };
@@ -472,6 +548,7 @@ const [toast, setToast] = useState<ToastState>(null);
                 cookingTime,
                 budgetLevel,
                 avoidIngredients,
+                preferredIngredients,
                 mood,
               },
             }));
@@ -484,6 +561,51 @@ const [toast, setToast] = useState<ToastState>(null);
               setUsedFallback(false);
           
               try {
+                if (isDecidedView) {
+                  const saved = localStorage.getItem("decidedDinnerMenu");
+          
+                  if (saved && saved.startsWith("{")) {
+                    const parsed = JSON.parse(saved);
+                    const decidedMenu = parsed.menu;
+          
+                    if (decidedMenu) {
+                      const decidedMenuItem: MenuItem = {
+                        ...decidedMenu,
+                        id: `${decidedMenu.mainDish}-${decidedMenu.sideDish}-${decidedMenu.soup}-decided`,
+                        estimatedTime: decidedMenu.estimatedTime || `${cookingTime}分`,
+                        budgetComment:
+                          decidedMenu.budgetComment ||
+                          (budgetLevel === "節約" ? "節約寄り" : "ふつう"),
+                        nutritionComment:
+                          decidedMenu.nutritionComment ||
+                          "主菜・副菜・汁物を組み合わせて、バランスよくまとまりやすい献立です。",
+                        reason:
+                          decidedMenu.reason || "今日の献立として決定した内容です。",
+                        aiReason: decidedMenu.aiReason || "",
+                        shoppingList: decidedMenu.shoppingList || [],
+                        createdAt: decidedMenu.createdAt || new Date().toISOString(),
+                        sourceConditions:
+                          decidedMenu.sourceConditions || {
+                            familySize,
+                            cookingTime,
+                            budgetLevel,
+                            avoidIngredients,
+                            preferredIngredients,
+                            mood,
+                          },
+                      };
+          
+                      setMenus([decidedMenuItem]);
+                      setUsedFallback(false);
+                      return;
+                    }
+                  }
+          
+                  setMenus([]);
+                  setUsedFallback(false);
+                  return;
+                }
+          
                 const response = await fetch("/api/menu-generate", {
                   method: "POST",
                   headers: {
@@ -494,6 +616,7 @@ const [toast, setToast] = useState<ToastState>(null);
                     cookingTime,
                     budgetLevel,
                     avoidIngredients,
+                    preferredIngredients,
                     mood,
                   }),
                 });
@@ -528,9 +651,33 @@ const [toast, setToast] = useState<ToastState>(null);
             cookingTime,
             budgetLevel,
             avoidIngredients,
+            preferredIngredients,
             mood,
             refreshCount,
+            isDecidedView,
           ]);
+
+          useEffect(() => {
+            try {
+              const saved = localStorage.getItem("decidedDinnerMenu");
+          
+              if (!saved) {
+                setDecidedMenuKey("");
+                return;
+              }
+          
+              if (saved.startsWith("{")) {
+                const parsed = JSON.parse(saved);
+                setDecidedMenuKey(parsed.key || "");
+                return;
+              }
+          
+              setDecidedMenuKey(saved);
+            } catch (error) {
+              console.error("決定済み献立の復元に失敗しました", error);
+              setDecidedMenuKey("");
+            }
+          }, []);
 
           useEffect(() => {
             if (menus.length === 0) {
@@ -898,6 +1045,22 @@ showToast("保存しました", "success");
               <p className="text-sm leading-6 text-gray-600">
                 入力条件に合わせて、夕食候補を3つ表示しています。
               </p>
+              {decidedMenuKey ? (
+  <div className="mt-4 rounded-[24px] border border-green-200 bg-green-50 px-5 py-4">
+    <p className="text-sm font-bold text-green-700">今日の献立は決定済みです</p>
+    <p className="mt-1 text-sm text-gray-700">
+      下の候補の中から、1つ選んで夕食を決めました。
+    </p>
+
+  </div>
+) : (
+  <div className="mt-4 rounded-[24px] border border-pink-100 bg-pink-50 px-5 py-4">
+    <p className="text-sm font-bold text-pink-600">まだ決まっていません</p>
+    <p className="mt-1 text-sm text-gray-700">
+      気に入った候補があれば「この献立に決める」を押してください。
+    </p>
+  </div>
+)}
               <p className="mt-2 text-sm leading-6 text-gray-500">
                 条件を少し変えたいときは「条件を編集する」からすぐ調整できます。
               </p>
@@ -954,6 +1117,12 @@ showToast("保存しました", "success");
               </p>
             </div>
             <div className="rounded-2xl bg-pink-50 px-4 py-3">
+  <p className="text-xs text-gray-500">入れたい食材</p>
+  <p className="font-semibold text-gray-800">
+    {preferredIngredients || "なし"}
+  </p>
+</div>
+            <div className="rounded-2xl bg-pink-50 px-4 py-3">
               <p className="text-xs text-gray-500">気分</p>
               <p className="font-semibold text-gray-800">{mood}</p>
             </div>
@@ -964,7 +1133,11 @@ showToast("保存しました", "success");
           {menus.map((menu, index) => (
             <div
               key={menu.id}
-              className="rounded-[32px] bg-white p-6 shadow-sm"
+              className={`rounded-[32px] p-6 shadow-sm ${
+                decidedMenuKey === getMenuDecisionKey(menu)
+                  ? "border-2 border-green-300 bg-green-50"
+                  : "bg-white"
+              }`}
             >
               <div className="mb-4 flex items-center justify-between">
                 <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-semibold text-pink-600">
@@ -1012,6 +1185,20 @@ showToast("保存しました", "success");
   </p>
   <p>{aiReasons[index] || menu.reason}</p>
 </div>
+
+<button
+  type="button"
+  onClick={() => handleDecideMenu(menu)}
+  className={`mb-3 w-full rounded-full px-5 py-3 font-bold transition ${
+    decidedMenuKey === getMenuDecisionKey(menu)
+      ? "bg-green-500 text-white shadow-md"
+      : "bg-green-100 text-green-700 hover:bg-green-200"
+  }`}
+>
+  {decidedMenuKey === getMenuDecisionKey(menu)
+    ? "この献立に決定済み"
+    : "この献立に決める"}
+</button>
 
               <button
                 type="button"

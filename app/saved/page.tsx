@@ -18,12 +18,13 @@ type MenuItem = {
     createdAt: string;
     memo?: string;
     sourceConditions?: {
-      familySize: string;
-      cookingTime: string;
-      budgetLevel: string;
-      avoidIngredients: string;
-      mood: string;
-    };
+        familySize: string;
+        cookingTime: string;
+        budgetLevel: string;
+        avoidIngredients: string;
+        preferredIngredients: string;
+        mood: string;
+      };
   };
 
   type ShoppingListItem = {
@@ -126,26 +127,28 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       showToast("メモの保存に失敗しました", "error");
     }
   };
-  const handleReuseConditions = (menu: MenuItem) => {
-    if (!menu.sourceConditions) {
-        showToast("この献立には再利用できる条件データがありません", "error");
-      return;
-    }
-  
-    const params = new URLSearchParams({
-      familySize: menu.sourceConditions.familySize,
-      cookingTime: menu.sourceConditions.cookingTime,
-      budgetLevel: menu.sourceConditions.budgetLevel,
-      avoidIngredients: menu.sourceConditions.avoidIngredients,
-      mood: menu.sourceConditions.mood,
-    });
-  
-    window.location.href = `/result?${params.toString()}`;
-  };
 
-  const handleEditConditions = (menu: MenuItem) => {
+  const handleReuseConditions = (menu: MenuItem) => {
+  if (!menu.sourceConditions) {
+    showToast("この献立には再利用できる条件データがありません", "error");
+    return;
+  }
+
+  const params = new URLSearchParams({
+    familySize: menu.sourceConditions.familySize,
+    cookingTime: menu.sourceConditions.cookingTime,
+    budgetLevel: menu.sourceConditions.budgetLevel,
+    avoidIngredients: menu.sourceConditions.avoidIngredients,
+    preferredIngredients: menu.sourceConditions.preferredIngredients,
+    mood: menu.sourceConditions.mood,
+  });
+
+  window.location.href = `/result?${params.toString()}`;
+};
+
+const handleEditConditions = (menu: MenuItem) => {
     if (!menu.sourceConditions) {
-        showToast("この献立には編集できる条件データがありません", "error");
+      showToast("この献立には編集できる条件データがありません", "error");
       return;
     }
   
@@ -157,6 +160,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
           cookingTime: menu.sourceConditions.cookingTime,
           budgetLevel: menu.sourceConditions.budgetLevel,
           avoidIngredients: menu.sourceConditions.avoidIngredients,
+          preferredIngredients: menu.sourceConditions.preferredIngredients,
           mood: menu.sourceConditions.mood,
         })
       );

@@ -9,8 +9,10 @@ export default function CreatePage() {
   const [cookingTime, setCookingTime] = useState("30");
   const [budgetLevel, setBudgetLevel] = useState("ふつう");
   const [avoidIngredients, setAvoidIngredients] = useState("");
+  const [preferredIngredients, setPreferredIngredients] = useState("");
   const [mood, setMood] = useState("おまかせ");
   const [isLoaded, setIsLoaded] = useState(false);
+
 
   // 初回表示時に保存済みの入力内容を復元
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function CreatePage() {
         setBudgetLevel(parsed.budgetLevel ?? "ふつう");
         setAvoidIngredients(parsed.avoidIngredients ?? "");
         setMood(parsed.mood ?? "おまかせ");
+        setPreferredIngredients(parsed.preferredIngredients ?? "");
       }
     } catch (error) {
       console.error("入力内容の復元に失敗しました", error);
@@ -38,19 +41,28 @@ export default function CreatePage() {
     if (!isLoaded) return;
 
     try {
-      const draftData = {
-        familySize,
-        cookingTime,
-        budgetLevel,
-        avoidIngredients,
-        mood,
-      };
+        const draftData = {
+            familySize,
+            cookingTime,
+            budgetLevel,
+            avoidIngredients,
+            preferredIngredients,
+            mood,
+          };
 
       localStorage.setItem(CREATE_DRAFT_KEY, JSON.stringify(draftData));
     } catch (error) {
       console.error("入力内容の保存に失敗しました", error);
     }
-  }, [familySize, cookingTime, budgetLevel, avoidIngredients, mood, isLoaded]);
+}, [
+    familySize,
+    cookingTime,
+    budgetLevel,
+    avoidIngredients,
+    preferredIngredients,
+    mood,
+    isLoaded,
+  ]);
 
   const handleReset = () => {
     try {
@@ -63,6 +75,7 @@ export default function CreatePage() {
     setCookingTime("30");
     setBudgetLevel("ふつう");
     setAvoidIngredients("");
+    setPreferredIngredients("");
     setMood("おまかせ");
   };
 
@@ -70,12 +83,13 @@ export default function CreatePage() {
     e.preventDefault();
 
     const params = new URLSearchParams({
-      familySize,
-      cookingTime,
-      budgetLevel,
-      avoidIngredients,
-      mood,
-    });
+        familySize,
+        cookingTime,
+        budgetLevel,
+        avoidIngredients,
+        preferredIngredients,
+        mood,
+      });
 
     window.location.href = `/result?${params.toString()}`;
   };
@@ -177,6 +191,19 @@ export default function CreatePage() {
                 className="w-full rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3 outline-none placeholder:text-gray-400 focus:border-pink-300"
               />
             </div>
+
+            <div>
+  <label className="mb-2 block text-sm font-semibold text-gray-700">
+    入れたい食材
+  </label>
+  <input
+    type="text"
+    value={preferredIngredients}
+    onChange={(e) => setPreferredIngredients(e.target.value)}
+    placeholder="例：ほうれん草、豆腐"
+    className="w-full rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3 outline-none placeholder:text-gray-400 focus:border-pink-300"
+  />
+</div>
 
             <div>
               <label className="mb-2 block text-sm font-semibold text-gray-700">

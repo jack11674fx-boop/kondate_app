@@ -10,6 +10,7 @@ type MenuGenerateRequest = {
   cookingTime?: string;
   budgetLevel?: string;
   avoidIngredients?: string;
+  preferredIngredients?: string;
   mood?: string;
 };
 
@@ -70,9 +71,70 @@ function filterMenusByAvoidIngredients(
   );
 }
 
+function parsePreferredIngredients(preferredIngredients: string) {
+  return preferredIngredients
+    .split(/[、,，\s]+/)
+    .map((item) => normalizeIngredientText(item))
+    .filter(Boolean);
+}
+
+function countPreferredIngredientMatches(
+  menu: GeneratedMenu,
+  preferredIngredientList: string[]
+) {
+  if (preferredIngredientList.length === 0) {
+    return 0;
+  }
+
+  const joinedText = [
+    menu.title,
+    menu.mainDish,
+    menu.sideDish,
+    menu.soup,
+    menu.reason,
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return preferredIngredientList.filter((ingredient) =>
+    joinedText.includes(ingredient)
+  ).length;
+}
+
+function filterMenusByPreferredIngredients(
+  menus: GeneratedMenu[],
+  preferredIngredients: string
+) {
+  const preferredIngredientList = parsePreferredIngredients(preferredIngredients);
+
+  if (preferredIngredientList.length === 0) {
+    return menus;
+  }
+
+  const scoredMenus = menus
+    .map((menu) => ({
+      menu,
+      matchCount: countPreferredIngredientMatches(menu, preferredIngredientList),
+    }))
+    .filter((item) => item.matchCount > 0);
+
+  if (scoredMenus.length === 0) {
+    return [];
+  }
+
+  return scoredMenus
+    .sort((a, b) => b.matchCount - a.matchCount)
+    .map((item) => item.menu);
+}
+
 function buildFallbackMenus(inputData: MenuGenerateRequest): GeneratedMenu[] {
-  const { mood = "おまかせ", avoidIngredients = "" } = inputData;
+  const {
+    mood = "おまかせ",
+    avoidIngredients = "",
+    preferredIngredients = "",
+  } = inputData;
   const avoidText = avoidIngredients.trim();
+  const preferredText = preferredIngredients.trim();
 
   const fallbackByMood: Record<string, GeneratedMenu[]> = {
     和食: [
@@ -216,9 +278,17 @@ function buildFallbackMenus(inputData: MenuGenerateRequest): GeneratedMenu[] {
   };
 
   const baseMenus = fallbackByMood[mood] || fallbackByMood["おまかせ"];
-  const filteredMenus = filterMenusByAvoidIngredients(baseMenus, avoidText);
+const avoidFilteredMenus = filterMenusByAvoidIngredients(baseMenus, avoidText);
+const preferredFilteredMenus = filterMenusByPreferredIngredients(
+  avoidFilteredMenus,
+  preferredText
+);
 
-  return filteredMenus.slice(0, 3);
+if (preferredText) {
+  return preferredFilteredMenus.slice(0, 3);
+}
+
+return avoidFilteredMenus.slice(0, 3);
 }
 
 function dedupeMenus(menus: GeneratedMenu[]) {
@@ -240,6 +310,7 @@ async function generateMenusByAI(
     cookingTime = "30",
     budgetLevel = "ふつう",
     avoidIngredients = "",
+    preferredIngredients = "",
     mood = "おまかせ",
   } = inputData;
 
@@ -252,12 +323,16 @@ async function generateMenusByAI(
 - 調理時間: ${cookingTime}分
 - 予算感: ${budgetLevel}
 - 避けたい食材: ${avoidIngredients || "なし"}
+- 入れたい食材: ${preferredIngredients || "なし"}
 - 気分: ${mood}
 
 ルール:
 - 3つの候補を出す
 - 各候補に title, mainDish, sideDish, soup, reason を含める
 - 「避けたい食材」に書かれた食材は、主菜・副菜・汁物・理由文のどこにも含めない
+- 「入れたい食材」に書かれた食材がある場合は、各候補で主菜・副菜・汁物のどれか1つ以上に必ず使う
+- 入れたい食材が複数ある場合は、各候補の中で少なくとも1つ以上を必ず使う
+- 入れたい食材を使えない候補は出さない
 - 似た食材名や関連表現もできるだけ避ける
 - 家庭の夕食として自然な献立にする
 - 必ずJSONだけを返す
@@ -282,18 +357,23 @@ async function generateMenusByAI(
         | GeneratedMenu[]
         | { menus?: GeneratedMenu[] };
 
-      const menus = Array.isArray(parsed)
+        const menus = Array.isArray(parsed)
         ? parsed
         : Array.isArray(parsed.menus)
           ? parsed.menus
           : [];
-
-      const filteredMenus = filterMenusByAvoidIngredients(
+      
+      const avoidFilteredMenus = filterMenusByAvoidIngredients(
         menus,
         avoidIngredients
       );
-
-      collectedMenus = dedupeMenus([...collectedMenus, ...filteredMenus]);
+      
+      const preferredFilteredMenus = filterMenusByPreferredIngredients(
+        avoidFilteredMenus,
+        preferredIngredients
+      );
+      
+      collectedMenus = dedupeMenus([...collectedMenus, ...preferredFilteredMenus]);
 
       if (collectedMenus.length >= 3) {
         return collectedMenus.slice(0, 3);
@@ -316,6 +396,7 @@ export async function GET() {
       cookingTime: "30",
       budgetLevel: "ふつう",
       avoidIngredients: "ピーマン",
+      preferredIngredients: "ほうれん草",
       mood: "和食",
     });
 
