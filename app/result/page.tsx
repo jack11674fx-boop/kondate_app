@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Toast from "@/components/Toast";
 
 type MenuItem = {
     id: string;
@@ -861,19 +862,7 @@ showToast("保存しました", "success");
 
   return (
     <main className="min-h-screen bg-[#fffaf5] px-6 py-10 text-gray-700">
-        {toast ? (
-  <div className="fixed bottom-4 right-4 z-[100] w-[calc(100%-2rem)] max-w-sm">
-    <div
-      className={`rounded-2xl border px-5 py-4 text-sm font-semibold shadow-lg ${
-        toast.type === "success"
-          ? "border-green-200 bg-green-50 text-green-700"
-          : "border-red-200 bg-red-50 text-red-700"
-      }`}
-    >
-      {toast.message}
-    </div>
-  </div>
-) : null}
+        {toast ? <Toast message={toast.message} type={toast.type} /> : null}
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-wrap gap-3">
           <button

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Toast from "@/components/Toast";
 
 type MenuItem = {
     id: string;
@@ -44,6 +45,11 @@ type MenuItem = {
     soupSteps: string[];
   };
 
+  type ToastState = {
+    message: string;
+    type: "success" | "error";
+  } | null;
+
 export default function SavedPage() {
     const [activeTab, setActiveTab] = useState<"favorite" | "history">("favorite");
     const [favoriteMenus, setFavoriteMenus] = useState<MenuItem[]>([]);
@@ -53,6 +59,7 @@ export default function SavedPage() {
     const [sortOrder, setSortOrder] = useState("newest");
     const [searchKeyword, setSearchKeyword] = useState("");
     const [openShoppingId, setOpenShoppingId] = useState("");
+    const [toast, setToast] = useState<ToastState>(null);
     const [loadingShoppingId, setLoadingShoppingId] = useState("");
     const [recipeStepsMap, setRecipeStepsMap] = useState<Record<string, RecipeSteps>>({});
     const [checkedShoppingItems, setCheckedShoppingItems] = useState<
@@ -77,6 +84,14 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
     }
   }, []);
 
+  const showToast = (message: string, type: "success" | "error") => {
+    setToast({ message, type });
+  
+    window.setTimeout(() => {
+      setToast(null);
+    }, 3000);
+  };
+
   const handleDeleteFavorite = (id: string) => {
     try {
       const updated = favoriteMenus.filter((menu) => menu.id !== id);
@@ -84,7 +99,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       setFavoriteMenus(updated);
     } catch (error) {
       console.error(error);
-      alert("削除に失敗しました");
+      showToast("削除に失敗しました", "error");
     }
   };
 
@@ -95,7 +110,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       setHistoryMenus(updated);
     } catch (error) {
       console.error(error);
-      alert("削除に失敗しました");
+      showToast("削除に失敗しました", "error");
     }
   };
   const handleFavoriteMemoChange = (id: string, memo: string) => {
@@ -108,12 +123,12 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       setFavoriteMenus(updated);
     } catch (error) {
       console.error(error);
-      alert("メモの保存に失敗しました");
+      showToast("メモの保存に失敗しました", "error");
     }
   };
   const handleReuseConditions = (menu: MenuItem) => {
     if (!menu.sourceConditions) {
-      alert("この献立には再利用できる条件データがありません");
+        showToast("この献立には再利用できる条件データがありません", "error");
       return;
     }
   
@@ -130,7 +145,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
 
   const handleEditConditions = (menu: MenuItem) => {
     if (!menu.sourceConditions) {
-      alert("この献立には編集できる条件データがありません");
+        showToast("この献立には編集できる条件データがありません", "error");
       return;
     }
   
@@ -149,7 +164,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       window.location.href = "/create";
     } catch (error) {
       console.error(error);
-      alert("条件の引き継ぎに失敗しました");
+      showToast("条件の引き継ぎに失敗しました", "error");
     }
   };
 
@@ -208,7 +223,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
             item.amount.trim() !== ""
         )
       ) {
-        alert("買い物リストの生成に失敗しました");
+        showToast("買い物リストの生成に失敗しました", "error");
         return;
       }
   
@@ -236,7 +251,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       setOpenShoppingId(menu.id);
     } catch (error) {
       console.error(error);
-      alert("買い物リストの生成に失敗しました");
+      showToast("作り方の生成に失敗しました", "error");
     } finally {
       setLoadingShoppingId("");
     }
@@ -277,7 +292,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
         !Array.isArray(data.recipe.sideDishSteps) ||
         !Array.isArray(data.recipe.soupSteps)
       ) {
-        alert("作り方の生成に失敗しました");
+        showToast("作り方の生成に失敗しました", "error");
         return;
       }
   
@@ -287,7 +302,7 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
       }));
     } catch (error) {
       console.error(error);
-      alert("作り方の生成に失敗しました");
+      showToast("作り方の生成に失敗しました", "error");
     } finally {
       setLoadingRecipeId("");
     }
@@ -359,6 +374,7 @@ const filteredMenus = currentMenus.filter((menu) => {
 
   return (
     <main className="min-h-screen bg-[#fffaf5] px-6 py-10 text-gray-700">
+        {toast ? <Toast message={toast.message} type={toast.type} /> : null}
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-wrap gap-3">
           <a
