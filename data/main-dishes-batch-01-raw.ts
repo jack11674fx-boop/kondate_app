@@ -5,7 +5,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "ハンバーグ",
         moods: ["洋食", "こってり"],
-        tags: ["牛肉", "豚肉", "玉ねぎ"],
+        tags: ["牛肉", "豚肉", "合いびき肉", "玉ねぎ", "卵"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -59,7 +59,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏の照り焼き",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉"],
+        tags: ["鶏肉", "鶏もも肉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -109,7 +109,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚のしょうが焼き",
         moods: ["和食", "こってり"],
-        tags: ["豚肉", "玉ねぎ", "しょうが"],
+        tags: ["豚肉", "豚ロース肉", "玉ねぎ", "しょうが"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -159,7 +159,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "青椒肉絲",
         moods: ["中華", "こってり"],
-        tags: ["豚肉", "ピーマン", "たけのこ"],
+        tags: ["豚肉", "豚こま肉", "ピーマン", "たけのこ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -212,7 +212,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "麻婆豆腐",
         moods: ["中華", "こってり"],
-        tags: ["豆腐", "豚肉", "ねぎ"],
+        tags: ["豚肉", "豚ひき肉", "木綿豆腐", "長ねぎ"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -266,7 +266,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "チキン南蛮",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "卵", "マヨネーズ"],
+        tags: ["鶏肉", "鶏むね肉", "卵", "マヨネーズ"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 30,
         budgetLevel: "ふつう",
@@ -322,7 +322,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "酢豚",
         moods: ["中華", "こってり"],
-        tags: ["豚肉", "玉ねぎ", "にんじん", "ピーマン"],
+        tags: ["豚肉", "豚こま肉", "玉ねぎ", "にんじん", "ピーマン"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -378,7 +378,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "肉じゃが",
         moods: ["和食", "あっさり"],
-        tags: ["牛肉", "じゃがいも", "玉ねぎ", "にんじん"],
+        tags: ["牛肉", "牛こま肉", "じゃがいも", "玉ねぎ", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 30,
         budgetLevel: "ふつう",
@@ -426,7 +426,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鮭の塩焼き",
         moods: ["和食", "あっさり"],
-        tags: ["魚"],
+        tags: ["魚", "鮭"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -461,7 +461,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鮭のムニエル",
         moods: ["洋食", "あっさり"],
-        tags: ["魚", "バター"],
+        tags: ["魚", "鮭"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -500,12 +500,14 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         imageUrl: "/images/main-dishes/salmon-meuniere.png",
         hasImage: false
       },
+
+
       {
         id: "main-chicken-breast-cheese-yaki",
         category: "main",
         name: "鶏むね肉のチーズ焼き",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "チーズ"],
+        tags: ["鶏肉", "鶏むね肉", "チーズ"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -550,7 +552,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "回鍋肉",
         moods: ["中華", "こってり"],
-        tags: ["豚肉", "キャベツ", "ピーマン"],
+        tags: ["豚肉", "豚こま肉", "キャベツ", "ピーマン"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -602,7 +604,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚しゃぶサラダ",
         moods: ["和食", "あっさり"],
-        tags: ["豚肉", "レタス", "きゅうり", "トマト"],
+        tags: ["豚肉", "豚しゃぶ用肉", "レタス", "きゅうり", "トマト"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -652,7 +654,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "白身魚の蒸し焼き",
         moods: ["和食", "あっさり"],
-        tags: ["魚", "きのこ"],
+        tags: ["魚", "白身魚", "しめじ", "玉ねぎ"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -746,7 +748,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "さばの味噌煮",
         moods: ["和食", "こってり"],
-        tags: ["魚", "しょうが"],
+        tags: ["魚", "さば", "しょうが"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -791,7 +793,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "ぶりの照り焼き",
         moods: ["和食", "こってり"],
-        tags: ["魚"],
+        tags: ["魚", "ぶり"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -841,7 +843,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏の甘辛煮",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉"],
+        tags: ["鶏肉", "鶏もも肉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -891,7 +893,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "えびと卵の炒め物",
         moods: ["中華", "あっさり"],
-        tags: ["えび", "卵", "ねぎ"],
+        tags: ["えび", "むきえび", "卵", "長ねぎ"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -936,7 +938,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "チキンソテー",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "にんにく"],
+        tags: ["鶏肉", "鶏もも肉", "にんにく"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -992,7 +994,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏もも肉の塩こうじ焼き",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉", "塩こうじ"],
+        tags: ["鶏肉", "鶏もも肉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -1033,7 +1035,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚バラ大根",
         moods: ["和食", "こってり"],
-        tags: ["豚肉", "大根"],
+        tags: ["豚肉", "豚バラ肉", "大根"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 30,
         budgetLevel: "ふつう",
@@ -1078,7 +1080,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉と玉ねぎの甘辛炒め",
         moods: ["和食", "こってり"],
-        tags: ["牛肉", "玉ねぎ"],
+        tags: ["牛肉", "牛こま肉", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -1123,7 +1125,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉とキャベツの味噌炒め",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉", "キャベツ"],
+        tags: ["鶏肉", "鶏もも肉", "キャベツ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -1168,7 +1170,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉とピーマンのオイスター炒め",
         moods: ["中華", "こってり"],
-        tags: ["豚肉", "ピーマン"],
+        tags: ["豚肉", "豚こま肉", "ピーマン"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -1213,7 +1215,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "白身魚のフライ",
         moods: ["洋食", "こってり"],
-        tags: ["魚", "卵", "パン粉"],
+        tags: ["魚", "白身魚", "卵", "パン粉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -1262,7 +1264,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "あじの南蛮漬け",
         moods: ["和食", "あっさり"],
-        tags: ["魚", "玉ねぎ", "にんじん"],
+        tags: ["魚", "あじ", "玉ねぎ", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 30,
         budgetLevel: "ふつう",
@@ -1314,7 +1316,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "さばの塩焼き",
         moods: ["和食", "あっさり"],
-        tags: ["魚"],
+        tags: ["魚", "さば"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -1349,7 +1351,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏手羽元のさっぱり煮",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉", "酢"],
+        tags: ["鶏肉", "鶏手羽元"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 30,
         budgetLevel: "節約",
@@ -1393,7 +1395,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚ロースのとんかつ",
         moods: ["洋食", "こってり"],
-        tags: ["豚肉", "卵", "パン粉"],
+        tags: ["豚肉", "豚ロース肉", "卵", "パン粉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -1442,7 +1444,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉のトマト煮込み",
         moods: ["洋食", "あっさり"],
-        tags: ["鶏肉", "トマト", "玉ねぎ"],
+        tags: ["鶏肉", "鶏もも肉", "トマト", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -1481,13 +1483,23 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/chicken-tomato-stew.png",
         hasImage: false
-      },
+      }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      ,
       {
         id: "main-beef-and-broccoli-stir-fry",
         category: "main",
         name: "牛肉とブロッコリーの炒め物",
         moods: ["中華", "こってり"],
-        tags: ["牛肉", "ブロッコリー"],
+        tags: ["牛肉", "牛こま肉", "ブロッコリー"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -1532,7 +1544,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "厚揚げと豚肉の甘辛炒め",
         moods: ["和食", "こってり"],
-        tags: ["厚揚げ", "豚肉"],
+        tags: ["豚肉", "豚こま肉", "厚揚げ"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -1577,7 +1589,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豆腐とひき肉のあんかけ",
         moods: ["和食", "中華", "あっさり"],
-        tags: ["豆腐", "豚肉"],
+        tags: ["豚肉", "豚ひき肉", "木綿豆腐"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -1629,7 +1641,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉とじゃがいもの煮物",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉", "じゃがいも", "にんじん"],
+        tags: ["鶏肉", "鶏もも肉", "じゃがいも", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "節約",
@@ -1675,7 +1687,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "いわしの蒲焼き",
         moods: ["和食", "こってり"],
-        tags: ["魚"],
+        tags: ["魚", "いわし"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -1725,7 +1737,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉と白菜の重ね蒸し",
         moods: ["和食", "あっさり"],
-        tags: ["豚肉", "白菜"],
+        tags: ["豚肉", "豚バラ肉", "白菜"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -1769,12 +1781,17 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         imageUrl: "/images/main-dishes/pork-and-chinese-cabbage-layered-steam.png",
         hasImage: false
       },
+      
+      
+      
+      
+      
       {
         id: "main-chicken-and-mushroom-butter-soy-stir-fry",
         category: "main",
         name: "鶏肉ときのこのバター醤油炒め",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "きのこ", "バター"],
+        tags: ["鶏肉", "鶏もも肉", "しめじ", "えのき"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -1820,7 +1837,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉のすき焼き風煮",
         moods: ["和食", "こってり"],
-        tags: ["牛肉", "豆腐", "玉ねぎ"],
+        tags: ["牛肉", "牛こま肉", "焼き豆腐", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "大豆製品", "野菜"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -1866,7 +1883,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉の唐揚げ",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉", "しょうが", "にんにく"],
+        tags: ["鶏肉", "鶏もも肉", "しょうが", "にんにく"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -1909,19 +1926,12 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/chicken-karaage.png",
         hasImage: false
-      },
-
-
-
-
-
-
-      {
+      },{
         id: "main-salted-grilled-mackerel",
         category: "main",
         name: "さばの塩焼き",
         moods: ["和食", "あっさり"],
-        tags: ["魚"],
+        tags: ["魚", "さば"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -1957,7 +1967,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏手羽元のさっぱり煮",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉"],
+        tags: ["鶏肉", "鶏手羽元"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 30,
         budgetLevel: "節約",
@@ -2001,7 +2011,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚ロースのとんかつ",
         moods: ["洋食", "こってり"],
-        tags: ["豚肉"],
+        tags: ["豚肉", "豚ロース肉", "卵", "パン粉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -2041,7 +2051,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉のトマト煮込み",
         moods: ["洋食", "あっさり"],
-        tags: ["鶏肉", "トマト", "玉ねぎ"],
+        tags: ["鶏肉", "鶏もも肉", "トマト", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -2086,7 +2096,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉とブロッコリーの炒め物",
         moods: ["中華", "こってり"],
-        tags: ["牛肉", "ブロッコリー"],
+        tags: ["牛肉", "牛こま肉", "ブロッコリー"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -2131,7 +2141,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "厚揚げと豚肉の甘辛炒め",
         moods: ["和食", "こってり"],
-        tags: ["豆腐", "豚肉"],
+        tags: ["豚肉", "豚こま肉", "厚揚げ"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -2176,7 +2186,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豆腐とひき肉のあんかけ",
         moods: ["和食", "中華", "あっさり"],
-        tags: ["豆腐", "豚肉"],
+        tags: ["豚肉", "豚ひき肉", "豆腐"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -2222,7 +2232,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉とじゃがいもの煮物",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉", "じゃがいも", "にんじん"],
+        tags: ["鶏肉", "鶏もも肉", "じゃがいも", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "節約",
@@ -2268,7 +2278,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "いわしの蒲焼き",
         moods: ["和食", "こってり"],
-        tags: ["魚"],
+        tags: ["魚", "いわし"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -2313,7 +2323,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉と白菜の重ね蒸し",
         moods: ["和食", "あっさり"],
-        tags: ["豚肉", "白菜"],
+        tags: ["豚肉", "豚バラ肉", "白菜"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -2351,429 +2361,18 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/pork-and-chinese-cabbage-layered-steam.png",
         hasImage: false
-      },
-      {
-        id: "main-chicken-and-mushroom-butter-soy-stir-fry",
-        category: "main",
-        name: "鶏肉ときのこのバター醤油炒め",
-        moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "きのこ"],
-        nutritionTags: ["たんぱく質", "野菜"],
-        cookingTime: 15,
-        budgetLevel: "ふつう",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "鶏もも肉", amount: "1枚" },
-              { name: "しめじ", amount: "1/2パック" },
-              { name: "えのき", amount: "1/2袋" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "バター", amount: "10g" },
-              { name: "しょうゆ", amount: "大さじ1" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "塩", amount: "少々" },
-              { name: "こしょう", amount: "少々" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "鶏肉はひと口大に切り、きのこは石づきを取ってほぐしておく。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "フライパンで鶏肉を焼き、火が通ってきたらきのこを加えて炒める。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "Bを加えて全体に風味をなじませ、バター醤油の香りが立ったら完成。",
-            ingredientGroupLabels: ["B"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/chicken-and-mushroom-butter-soy-stir-fry.png",
-        hasImage: false
-      },
-      {
-        id: "main-beef-sukiyaki-style-simmered",
-        category: "main",
-        name: "牛肉のすき焼き風煮",
-        moods: ["和食", "こってり"],
-        tags: ["牛肉", "豆腐", "玉ねぎ"],
-        nutritionTags: ["たんぱく質", "大豆製品", "野菜"],
-        cookingTime: 20,
-        budgetLevel: "ふつう",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "牛こま肉", amount: "180g" },
-              { name: "焼き豆腐", amount: "1/2丁" },
-              { name: "玉ねぎ", amount: "1/2個" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "しょうゆ", amount: "大さじ2" },
-              { name: "みりん", amount: "大さじ2" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "砂糖", amount: "大さじ1" },
-              { name: "和風だし", amount: "200ml" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "玉ねぎは薄切りにし、豆腐は食べやすい大きさに切る。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "鍋で牛肉と玉ねぎを軽く炒め、香りが立ったら豆腐を加える。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "Bを加えて煮込み、全体にすき焼き風の甘辛い味がしみたら完成。",
-            ingredientGroupLabels: ["B"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/beef-sukiyaki-style-simmered.png",
-        hasImage: false
-      },
-      {
-        id: "main-fried-chicken",
-        category: "main",
-        name: "鶏肉の唐揚げ",
-        moods: ["和食", "こってり"],
-        tags: ["鶏肉"],
-        nutritionTags: ["たんぱく質"],
-        cookingTime: 25,
-        budgetLevel: "ふつう",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "鶏もも肉", amount: "1枚" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "しょうゆ", amount: "大さじ1" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "にんにく", amount: "1/2かけ" },
-              { name: "しょうが", amount: "1/2かけ" },
-              { name: "片栗粉", amount: "大さじ3" },
-              { name: "油", amount: "適量" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "鶏肉をひと口大に切り、Bの調味料で下味をつけてしばらく置く。",
-            ingredientGroupLabels: ["A", "B"]
-          },
-          {
-            description: "鶏肉の表面に片栗粉をまぶし、油を熱したフライパンまたは鍋で揚げ焼きにする。",
-            ingredientGroupLabels: ["B"]
-          },
-          {
-            description: "表面がカリッとして中まで火が通ったら取り出し、油を切って仕上げる。",
-            ingredientGroupLabels: ["B"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/fried-chicken.png",
-        hasImage: false
       }
-      
       
       
       
       
       ,
       {
-        id: "main-chicken-breast-piccata",
-        category: "main",
-        name: "鶏むね肉のピカタ",
-        moods: ["洋食", "あっさり"],
-        tags: ["鶏肉", "卵", "チーズ"],
-        nutritionTags: ["たんぱく質"],
-        cookingTime: 20,
-        budgetLevel: "節約",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "鶏むね肉", amount: "1枚" },
-              { name: "塩", amount: "小さじ1/4" },
-              { name: "こしょう", amount: "少々" },
-              { name: "小麦粉", amount: "大さじ1" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "卵", amount: "1個" },
-              { name: "粉チーズ", amount: "大さじ2" }
-            ]
-          },
-          {
-            label: "C",
-            items: [
-              { name: "油", amount: "小さじ2" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "鶏むね肉はそぎ切りにしてAをまぶし、Bを混ぜ合わせる。",
-            ingredientGroupLabels: ["A", "B"]
-          },
-          {
-            description: "鶏肉をBにくぐらせ、フライパンにCを熱して両面をこんがり焼く。",
-            ingredientGroupLabels: ["B", "C"]
-          },
-          {
-            description: "中まで火が通ったら取り出し、表面がふんわりした状態で仕上げる。"
-          }
-        ],
-        imageUrl: "/images/main-dishes/chicken-breast-piccata.png",
-        hasImage: false
-      },
-      {
-        id: "main-pork-and-onion-egg-toji",
-        category: "main",
-        name: "豚こま肉と玉ねぎの卵とじ",
-        moods: ["和食", "あっさり"],
-        tags: ["豚肉", "玉ねぎ", "卵"],
-        nutritionTags: ["たんぱく質"],
-        cookingTime: 15,
-        budgetLevel: "節約",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "豚こま肉", amount: "150g" },
-              { name: "玉ねぎ", amount: "1/2個" },
-              { name: "卵", amount: "2個" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "しょうゆ", amount: "大さじ1" },
-              { name: "みりん", amount: "大さじ1" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "和風だし", amount: "100ml" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "玉ねぎは薄切りにし、卵は溶いておく。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "フライパンにAの豚こま肉と玉ねぎを入れて軽く炒め、Bを加えて火を通す。",
-            ingredientGroupLabels: ["A", "B"]
-          },
-          {
-            description: "溶き卵を回し入れ、半熟状に火を入れてふんわりと仕上げる。",
-            ingredientGroupLabels: ["A"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/pork-and-onion-egg-toji.png",
-        hasImage: false
-      },
-      {
-        id: "main-beef-and-burdock-shigure-ni",
-        category: "main",
-        name: "牛肉とごぼうのしぐれ煮",
-        moods: ["和食", "こってり"],
-        tags: ["牛肉", "ごぼう", "しょうが"],
-        nutritionTags: ["たんぱく質", "野菜"],
-        cookingTime: 20,
-        budgetLevel: "ふつう",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "牛こま肉", amount: "180g" },
-              { name: "ごぼう", amount: "1/2本" },
-              { name: "しょうが", amount: "1片" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "しょうゆ", amount: "大さじ1と1/2" },
-              { name: "みりん", amount: "大さじ1" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "砂糖", amount: "小さじ2" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "ごぼうはささがきにして水にさらし、しょうがは細切りにする。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "鍋またはフライパンでAを炒め、牛肉の色が変わったらごぼうとしょうがをしんなりするまで炒める。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "Bを加えて汁気が少なくなるまで煮詰め、甘辛い味をしっかり含ませて仕上げる。",
-            ingredientGroupLabels: ["B"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/beef-and-burdock-shigure-ni.png",
-        hasImage: false
-      },
-      {
-        id: "main-chicken-and-daikon-teri-ni",
-        category: "main",
-        name: "鶏肉と大根の照り煮",
-        moods: ["和食", "こってり"],
-        tags: ["鶏肉", "大根"],
-        nutritionTags: ["たんぱく質", "野菜"],
-        cookingTime: 25,
-        budgetLevel: "節約",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "鶏もも肉", amount: "1枚" },
-              { name: "大根", amount: "250g" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "しょうゆ", amount: "大さじ1と1/2" },
-              { name: "みりん", amount: "大さじ1" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "砂糖", amount: "小さじ2" },
-              { name: "和風だし", amount: "150ml" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "鶏もも肉はひと口大に切り、大根は厚めのいちょう切りにする。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "鍋でAを炒め、鶏肉の表面に焼き色がついたら大根も加えてなじませる。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "Bを加えて煮込み、煮汁に照りが出て大根まで味がしみたら仕上げる。",
-            ingredientGroupLabels: ["B"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/chicken-and-daikon-teri-ni.png",
-        hasImage: false
-      },
-      {
-        id: "main-pork-and-eggplant-miso-stir-fry",
-        category: "main",
-        name: "豚肉とナスの味噌炒め",
-        moods: ["和食", "こってり"],
-        tags: ["豚肉", "なす"],
-        nutritionTags: ["たんぱく質", "野菜"],
-        cookingTime: 20,
-        budgetLevel: "節約",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "豚こま肉", amount: "150g" },
-              { name: "なす", amount: "2本" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "みそ", amount: "大さじ1" },
-              { name: "しょうゆ", amount: "小さじ1" },
-              { name: "みりん", amount: "大さじ1" },
-              { name: "酒", amount: "大さじ1" },
-              { name: "砂糖", amount: "小さじ1" },
-              { name: "油", amount: "大さじ1" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "なすは乱切りにし、豚こま肉は食べやすくほぐす。",
-            ingredientGroupLabels: ["A"]
-          },
-          {
-            description: "フライパンにBの油を熱し、豚肉を炒めて色が変わったらなすを加えてしんなりするまで炒める。",
-            ingredientGroupLabels: ["A", "B"]
-          },
-          {
-            description: "Bの残りを加えて全体に味噌だれを絡め、つやよく仕上げる。",
-            ingredientGroupLabels: ["B"]
-          }
-        ],
-        imageUrl: "/images/main-dishes/pork-and-eggplant-miso-stir-fry.png",
-        hasImage: false
-      },
-      {
-        id: "main-white-fish-breadcrumb-yaki",
-        category: "main",
-        name: "白身魚のパン粉焼き",
-        moods: ["洋食", "あっさり"],
-        tags: ["魚", "パン粉"],
-        nutritionTags: ["たんぱく質"],
-        cookingTime: 20,
-        budgetLevel: "ふつう",
-        ingredientGroups: [
-          {
-            label: "A",
-            items: [
-              { name: "白身魚", amount: "2切れ" },
-              { name: "塩", amount: "少々" },
-              { name: "こしょう", amount: "少々" }
-            ]
-          },
-          {
-            label: "B",
-            items: [
-              { name: "パン粉", amount: "1/2カップ" },
-              { name: "オリーブオイル", amount: "大さじ1" },
-              { name: "粉チーズ", amount: "大さじ1" }
-            ]
-          }
-        ],
-        steps: [
-          {
-            description: "白身魚にAで下味をつけ、Bを混ぜ合わせる。",
-            ingredientGroupLabels: ["A", "B"]
-          },
-          {
-            description: "魚の表面にBをのせ、トースターまたはフライパンで表面がこんがりするまで焼く。",
-            ingredientGroupLabels: ["B"]
-          },
-          {
-            description: "魚がふっくらして中まで火が通ったら取り出して仕上げる。"
-          }
-        ],
-        imageUrl: "/images/main-dishes/white-fish-breadcrumb-yaki.png",
-        hasImage: false
-      },
-      {
         id: "main-salted-grilled-horse-mackerel",
         category: "main",
         name: "あじの塩焼き",
         moods: ["和食", "あっさり"],
-        tags: ["魚"],
+        tags: ["魚", "あじ"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -2808,7 +2407,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉とピーマンの甘辛炒め",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉", "ピーマン"],
+        tags: ["鶏肉", "鶏もも肉", "ピーマン"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -2853,7 +2452,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉と小松菜のにんにく炒め",
         moods: ["中華", "こってり"],
-        tags: ["豚肉", "小松菜", "にんにく"],
+        tags: ["豚肉", "豚こま肉", "小松菜", "にんにく"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -2898,7 +2497,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉としらたきの煮物",
         moods: ["和食", "あっさり"],
-        tags: ["牛肉", "しらたき", "玉ねぎ"],
+        tags: ["牛肉", "牛こま肉", "しらたき", "玉ねぎ"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -2944,7 +2543,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏ひき肉のつくね焼き",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉", "ねぎ", "卵"],
+        tags: ["鶏肉", "鶏ひき肉", "長ねぎ", "卵"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -2991,7 +2590,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "厚揚げのそぼろあんかけ",
         moods: ["和食", "あっさり"],
-        tags: ["厚揚げ", "鶏肉"],
+        tags: ["鶏肉", "鶏ひき肉", "厚揚げ"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -3043,7 +2642,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉とれんこんのきんぴら",
         moods: ["和食", "こってり"],
-        tags: ["豚肉", "れんこん", "にんじん"],
+        tags: ["豚肉", "豚こま肉", "れんこん", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -3089,7 +2688,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉と長ねぎの塩炒め",
         moods: ["中華", "あっさり"],
-        tags: ["鶏肉", "長ねぎ"],
+        tags: ["鶏肉", "鶏もも肉", "長ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -3134,7 +2733,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "いわしの梅煮",
         moods: ["和食", "あっさり"],
-        tags: ["魚", "梅", "しょうが"],
+        tags: ["魚", "いわし", "梅干し", "しょうが"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -3178,7 +2777,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉と豆腐のチャンプルー",
         moods: ["和食", "あっさり"],
-        tags: ["豚肉", "豆腐", "卵", "にら"],
+        tags: ["豚肉", "豚こま肉", "木綿豆腐", "卵", "にら"],
         nutritionTags: ["たんぱく質", "大豆製品"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -3218,13 +2817,19 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/pork-and-tofu-champuru.png",
         hasImage: false
-      },
+      }
+      
+      
+      
+      
+      ,
+      
       {
         id: "main-chicken-and-broccoli-salt-stir-fry",
         category: "main",
         name: "鶏肉とブロッコリーの塩炒め",
         moods: ["中華", "あっさり"],
-        tags: ["鶏肉", "ブロッコリー"],
+        tags: ["鶏肉", "鶏もも肉", "ブロッコリー"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -3269,7 +2874,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉とピーマンの細切り炒め",
         moods: ["中華", "こってり"],
-        tags: ["牛肉", "ピーマン", "たけのこ"],
+        tags: ["牛肉", "牛こま肉", "ピーマン", "たけのこ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -3315,7 +2920,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "白身魚のホイル焼き",
         moods: ["洋食", "あっさり"],
-        tags: ["魚", "きのこ", "玉ねぎ", "バター"],
+        tags: ["魚", "白身魚", "玉ねぎ", "しめじ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -3359,7 +2964,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉と白菜のクリーム煮",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "白菜", "牛乳"],
+        tags: ["鶏肉", "鶏もも肉", "白菜", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -3400,20 +3005,13 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/chicken-and-chinese-cabbage-cream-ni.png",
         hasImage: false
-      }
-      
-      
-      
-      
-      
-      
-      ,
+      },
       {
         id: "main-chicken-and-carrot-teri-stir-fry",
         category: "main",
         name: "鶏肉とにんじんの照り炒め",
         moods: ["和食", "こってり"],
-        tags: ["鶏肉", "にんじん"],
+        tags: ["鶏肉", "鶏もも肉", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -3458,7 +3056,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉と玉ねぎのポン酢炒め",
         moods: ["和食", "あっさり"],
-        tags: ["豚肉", "玉ねぎ"],
+        tags: ["豚肉", "豚こま肉", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -3501,7 +3099,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉とキャベツの塩だれ炒め",
         moods: ["中華", "あっさり"],
-        tags: ["牛肉", "キャベツ"],
+        tags: ["牛肉", "牛こま肉", "キャベツ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -3546,7 +3144,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉と厚揚げの煮物",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉", "厚揚げ", "にんじん"],
+        tags: ["鶏肉", "鶏もも肉", "厚揚げ", "にんじん"],
         nutritionTags: ["たんぱく質", "大豆製品", "野菜"],
         cookingTime: 25,
         budgetLevel: "節約",
@@ -3592,7 +3190,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉とニラの卵炒め",
         moods: ["中華", "こってり"],
-        tags: ["豚肉", "ニラ", "卵"],
+        tags: ["豚肉", "豚こま肉", "ニラ", "卵"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -3638,7 +3236,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "白身魚の甘酢あんかけ",
         moods: ["中華", "あっさり"],
-        tags: ["魚", "玉ねぎ", "にんじん"],
+        tags: ["魚", "白身魚", "玉ねぎ", "にんじん"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -3687,13 +3285,17 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/white-fish-sweet-sour-ankake.png",
         hasImage: false
-      },
+      }
+      
+      
+      
+      ,
       {
         id: "main-horse-mackerel-fry",
         category: "main",
         name: "あじのフライ",
         moods: ["洋食", "こってり"],
-        tags: ["魚", "卵", "パン粉"],
+        tags: ["魚", "あじ", "卵", "パン粉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -3742,7 +3344,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "さばの竜田揚げ",
         moods: ["和食", "こってり"],
-        tags: ["魚", "しょうが"],
+        tags: ["魚", "さば", "しょうが"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -3790,7 +3392,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏手羽先の塩焼き",
         moods: ["和食", "あっさり"],
-        tags: ["鶏肉"],
+        tags: ["鶏肉", "鶏手羽先"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "節約",
@@ -3832,7 +3434,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉とじゃがいものガーリック炒め",
         moods: ["洋食", "こってり"],
-        tags: ["豚肉", "じゃがいも", "にんにく"],
+        tags: ["豚肉", "豚こま肉", "じゃがいも", "にんにく"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -3878,7 +3480,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉としめじのバター炒め",
         moods: ["洋食", "こってり"],
-        tags: ["牛肉", "しめじ", "バター"],
+        tags: ["牛肉", "牛こま肉", "しめじ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -3922,7 +3524,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉とほうれん草のクリーム炒め",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "ほうれん草", "牛乳"],
+        tags: ["鶏肉", "鶏もも肉", "ほうれん草", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -4013,7 +3615,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉とピーマンのカレー炒め",
         moods: ["洋食", "こってり"],
-        tags: ["豚肉", "ピーマン", "カレー粉"],
+        tags: ["豚肉", "豚こま肉", "ピーマン", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",
@@ -4058,7 +3660,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉の塩レモン焼き",
         moods: ["洋食", "あっさり"],
-        tags: ["鶏肉", "レモン"],
+        tags: ["鶏肉", "鶏もも肉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -4102,7 +3704,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "白身魚の煮付け",
         moods: ["和食", "あっさり"],
-        tags: ["魚", "しょうが"],
+        tags: ["魚", "白身魚", "しょうが"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 20,
         budgetLevel: "ふつう",
@@ -4140,13 +3742,18 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/main-dishes/white-fish-nitsuke.png",
         hasImage: false
-      },
+      }
+      
+      
+      
+      
+      ,
       {
         id: "main-sardine-fry",
         category: "main",
         name: "いわしのフライ",
         moods: ["洋食", "こってり"],
-        tags: ["魚", "卵", "パン粉"],
+        tags: ["魚", "いわし", "卵", "パン粉"],
         nutritionTags: ["たんぱく質"],
         cookingTime: 25,
         budgetLevel: "ふつう",
@@ -4195,7 +3802,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "牛肉とにんにくの芽の炒め物",
         moods: ["中華", "こってり"],
-        tags: ["牛肉", "にんにくの芽"],
+        tags: ["牛肉", "牛こま肉", "にんにくの芽"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "ふつう",
@@ -4240,7 +3847,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "豚肉とキャベツの蒸し煮",
         moods: ["和食", "あっさり"],
-        tags: ["豚肉", "キャベツ", "玉ねぎ"],
+        tags: ["豚肉", "豚バラ肉", "キャベツ", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 20,
         budgetLevel: "節約",
@@ -4290,7 +3897,7 @@ export const RAW_MAIN_DISHES_BATCH_01 = [
         category: "main",
         name: "鶏肉とコーンのバター炒め",
         moods: ["洋食", "こってり"],
-        tags: ["鶏肉", "コーン", "玉ねぎ", "バター"],
+        tags: ["鶏肉", "鶏もも肉", "コーン", "玉ねぎ"],
         nutritionTags: ["たんぱく質", "野菜"],
         cookingTime: 15,
         budgetLevel: "節約",

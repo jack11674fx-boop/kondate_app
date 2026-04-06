@@ -874,7 +874,866 @@ export const RAW_SIDE_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/side-dishes/eggplant-nibitashi.png",
         hasImage: false,
-      },{
+      },
+      
+      {
+        id: "side-daikon-tuna-salad",
+        name: "大根とツナのサラダ",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["大根", "ツナ", "野菜"],
+        nutritionTags: ["たんぱく質", "食物繊維", "ビタミン"],
+        cookingTime: 10,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "大根", amount: "5cm分" },
+              { name: "ツナ缶", amount: "1缶" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "マヨネーズ", amount: "大さじ1" },
+              { name: "しょうゆ", amount: "小さじ1/2" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "大根は細切りにし、ツナは油を軽く切る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れて全体を混ぜる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて和え、味をととのえる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/daikon-tuna-salad.png",
+        hasImage: false,
+      },
+      {
+        id: "side-spinach-bacon-butter-stir-fry",
+        name: "ほうれん草とベーコンのバター炒め",
+        category: "side",
+        moods: ["洋食", "こってり"],
+        tags: ["ほうれん草", "ベーコン", "野菜"],
+        nutritionTags: ["ビタミン", "たんぱく質", "脂質"],
+        cookingTime: 10,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "ほうれん草", amount: "1/2束" },
+              { name: "ベーコン", amount: "2枚" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "バター", amount: "10g" },
+              { name: "しょうゆ", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "ほうれん草は4cm幅に切り、ベーコンは1cm幅に切る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでベーコンを炒め、ほうれん草を加えて火を通す。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて全体にからめる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/spinach-bacon-butter-stir-fry.png",
+        hasImage: false,
+      },
+      {
+        id: "side-eggplant-miso-stir-fry",
+        name: "なすの味噌炒め",
+        category: "side",
+        moods: ["和食", "こってり"],
+        tags: ["なす", "野菜"],
+        nutritionTags: ["食物繊維", "ビタミン", "脂質"],
+        cookingTime: 15,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "なす", amount: "2本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "味噌", amount: "大さじ1" },
+              { name: "みりん", amount: "大さじ1" },
+              { name: "砂糖", amount: "小さじ1" },
+              { name: "油", amount: "大さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "なすは乱切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでAをしんなりするまで炒める。",
+            ingredientGroupLabels: ["A", "B"],
+          },
+          {
+            description: "Bを加えて全体に味噌だれをからめる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/eggplant-miso-stir-fry.png",
+        hasImage: false,
+      },
+      {
+        id: "side-green-pepper-chikuwa-kinpira",
+        name: "ピーマンとちくわのきんぴら",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["ピーマン", "ちくわ", "野菜"],
+        nutritionTags: ["たんぱく質", "ビタミン", "食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "ピーマン", amount: "2個" },
+              { name: "ちくわ", amount: "2本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "ごま油", amount: "小さじ1" },
+              { name: "しょうゆ", amount: "小さじ1" },
+              { name: "みりん", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "ピーマンとちくわは細切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでAを炒める。",
+            ingredientGroupLabels: ["A", "B"],
+          },
+          {
+            description: "Bを加えて汁気が少なくなるまで炒める。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/green-pepper-chikuwa-kinpira.png",
+        hasImage: false,
+      },
+      {
+        id: "side-cabbage-egg-chinese-stir-fry",
+        name: "キャベツと卵の中華炒め",
+        category: "side",
+        moods: ["中華", "あっさり"],
+        tags: ["キャベツ", "卵", "野菜"],
+        nutritionTags: ["たんぱく質", "ビタミン", "食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "キャベツ", amount: "2枚" },
+              { name: "卵", amount: "2個" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "鶏ガラスープの素", amount: "小さじ1" },
+              { name: "しょうゆ", amount: "小さじ1" },
+              { name: "油", amount: "小さじ2" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "キャベツはざく切りにし、卵は溶いておく。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでキャベツを炒め、しんなりしたら卵を加える。",
+            ingredientGroupLabels: ["A", "B"],
+          },
+          {
+            description: "Bで味をととのえる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/cabbage-egg-chinese-stir-fry.png",
+        hasImage: false,
+      },
+      {
+        id: "side-tomato-onion-marinade",
+        name: "トマトと玉ねぎのマリネ",
+        category: "side",
+        moods: ["洋食", "あっさり"],
+        tags: ["トマト", "玉ねぎ", "野菜"],
+        nutritionTags: ["ビタミン", "食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "トマト", amount: "1個" },
+              { name: "玉ねぎ", amount: "1/4個" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "酢", amount: "大さじ1" },
+              { name: "オリーブオイル", amount: "大さじ1" },
+              { name: "塩", amount: "少々" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "トマトはくし形に切り、玉ねぎは薄切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて和え、少し置いてなじませる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/tomato-onion-marinade.png",
+        hasImage: false,
+      },
+      {
+        id: "side-moyashi-cucumber-chinese-ae",
+        name: "もやしときゅうりの中華和え",
+        category: "side",
+        moods: ["中華", "あっさり"],
+        tags: ["もやし", "きゅうり", "野菜"],
+        nutritionTags: ["食物繊維", "ビタミン"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "もやし", amount: "1/2袋" },
+              { name: "きゅうり", amount: "1/2本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "ごま油", amount: "小さじ1" },
+              { name: "しょうゆ", amount: "小さじ1" },
+              { name: "酢", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "もやしはさっとゆで、きゅうりは細切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れて混ぜる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて全体を和える。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/moyashi-cucumber-chinese-ae.png",
+        hasImage: false,
+      },
+      {
+        id: "side-satsumaimo-amani",
+        name: "さつまいもの甘煮",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["さつまいも"],
+        nutritionTags: ["炭水化物", "食物繊維", "ビタミン"],
+        cookingTime: 20,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "さつまいも", amount: "1/2本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "砂糖", amount: "大さじ1/2" },
+              { name: "みりん", amount: "大さじ1" },
+              { name: "水", amount: "200ml" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "さつまいもは輪切りまたは乱切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "鍋にAと水を入れてやわらかくなるまで煮る。",
+            ingredientGroupLabels: ["A", "B"],
+          },
+          {
+            description: "Bを加えて味をなじませる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/satsumaimo-amani.png",
+        hasImage: false,
+      },
+      {
+        id: "side-hakusai-aburaage-nibitashi",
+        name: "白菜と油揚げの煮びたし",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["白菜", "油揚げ", "野菜"],
+        nutritionTags: ["食物繊維", "たんぱく質"],
+        cookingTime: 15,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "白菜", amount: "2枚" },
+              { name: "油揚げ", amount: "1/2枚" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "だし", amount: "150ml" },
+              { name: "しょうゆ", amount: "小さじ2" },
+              { name: "みりん", amount: "小さじ2" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "白菜はざく切りにし、油揚げは短冊切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "鍋でAをしんなりするまで煮る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて味をしみ込ませる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/hakusai-aburaage-nibitashi.png",
+        hasImage: false,
+      },
+      {
+        id: "side-mushroom-butter-soy-stir-fry",
+        name: "きのこのバター醤油炒め",
+        category: "side",
+        moods: ["洋食", "こってり"],
+        tags: ["きのこ", "野菜"],
+        nutritionTags: ["食物繊維", "ビタミン", "脂質"],
+        cookingTime: 10,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "しめじ", amount: "1/2パック" },
+              { name: "えのき", amount: "1/2袋" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "バター", amount: "10g" },
+              { name: "しょうゆ", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "しめじとえのきは石づきを取ってほぐす。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでAを炒めてしんなりさせる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて全体にからめる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/mushroom-butter-soy-stir-fry.png",
+        hasImage: false,
+      },
+      {
+        id: "side-okra-okaka-ae",
+        name: "オクラのおかか和え",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["オクラ", "野菜"],
+        nutritionTags: ["食物繊維", "ビタミン", "ミネラル"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "オクラ", amount: "6本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "しょうゆ", amount: "小さじ1" },
+              { name: "かつおぶし", amount: "1袋" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "オクラはさっとゆでて斜め切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて和える。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/okra-okaka-ae.png",
+        hasImage: false,
+      },
+      {
+        id: "side-nagaimo-cucumber-ae",
+        name: "長いもときゅうりの和え物",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["長いも", "きゅうり", "野菜"],
+        nutritionTags: ["食物繊維", "ビタミン"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "長いも", amount: "5cm分" },
+              { name: "きゅうり", amount: "1/2本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "しょうゆ", amount: "小さじ1" },
+              { name: "酢", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "長いもは短冊切りにし、きゅうりは薄切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて和え、味をなじませる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/nagaimo-cucumber-ae.png",
+        hasImage: false,
+      },
+      {
+        id: "side-mizuna-tuna-salad",
+        name: "水菜とツナのサラダ",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["水菜", "ツナ", "野菜"],
+        nutritionTags: ["たんぱく質", "ビタミン", "食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "水菜", amount: "1/3袋" },
+              { name: "ツナ缶", amount: "1缶" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "ごま油", amount: "小さじ1" },
+              { name: "しょうゆ", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "水菜は4cm幅に切り、ツナは軽く油を切る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "器にAを盛る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bをかけて仕上げる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/mizuna-tuna-salad.png",
+        hasImage: false,
+      },
+      {
+        id: "side-carrot-tuna-salad",
+        name: "にんじんとツナのサラダ",
+        category: "side",
+        moods: ["洋食", "あっさり"],
+        tags: ["にんじん", "ツナ", "野菜"],
+        nutritionTags: ["ビタミン", "たんぱく質", "食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "にんじん", amount: "1/2本" },
+              { name: "ツナ缶", amount: "1缶" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "マヨネーズ", amount: "大さじ1" },
+              { name: "酢", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "にんじんは細切りにし、ツナは軽く油を切る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて全体を和える。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/carrot-tuna-salad.png",
+        hasImage: false,
+      },
+      {
+        id: "side-atsuage-amakara-yaki",
+        name: "厚揚げの甘辛焼き",
+        category: "side",
+        moods: ["和食", "こってり"],
+        tags: ["厚揚げ"],
+        nutritionTags: ["たんぱく質", "カルシウム", "脂質"],
+        cookingTime: 15,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "厚揚げ", amount: "1枚" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "しょうゆ", amount: "小さじ2" },
+              { name: "みりん", amount: "小さじ2" },
+              { name: "砂糖", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "厚揚げはひと口大に切る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでAの表面に焼き色をつける。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて全体にからめる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/atsuage-amakara-yaki.png",
+        hasImage: false,
+      },
+      {
+        id: "side-green-pepper-tuna-ae",
+        name: "ピーマンとツナの和え物",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["ピーマン", "ツナ", "野菜"],
+        nutritionTags: ["たんぱく質", "ビタミン", "食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "ピーマン", amount: "2個" },
+              { name: "ツナ缶", amount: "1缶" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "しょうゆ", amount: "小さじ1" },
+              { name: "ごま油", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "ピーマンは細切りにしてさっと火を通す。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて和える。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+       imageUrl: "/images/side-dishes/green-pepper-tuna-ae.png",
+        hasImage: false,
+      },
+      {
+        id: "side-broccoli-boiled-egg-salad",
+        name: "ブロッコリーとゆで卵のサラダ",
+        category: "side",
+        moods: ["洋食", "あっさり"],
+        tags: ["ブロッコリー", "卵", "野菜"],
+        nutritionTags: ["たんぱく質", "ビタミン", "食物繊維"],
+        cookingTime: 15,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "ブロッコリー", amount: "1/2株" },
+              { name: "卵", amount: "2個" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "マヨネーズ", amount: "大さじ1" },
+              { name: "塩", amount: "少々" },
+              { name: "こしょう", amount: "少々" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "ブロッコリーは小房に分けてゆで、ゆで卵は4等分に切る。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "ボウルにAを入れる。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて軽く和える。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/broccoli-boiled-egg-salad.png",
+        hasImage: false,
+      },
+      {
+        id: "side-konnyaku-pirikara-itame",
+        name: "こんにゃくのピリ辛炒め",
+        category: "side",
+        moods: ["和食", "こってり"],
+        tags: ["こんにゃく"],
+        nutritionTags: ["食物繊維", "ミネラル"],
+        cookingTime: 15,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "こんにゃく", amount: "1枚" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "しょうゆ", amount: "小さじ2" },
+              { name: "みりん", amount: "小さじ2" },
+              { name: "豆板醤", amount: "小さじ1/2" },
+              { name: "油", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "こんにゃくは短冊切りにして下ゆでする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでAを炒めて水分を飛ばす。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて全体にからめる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/konnyaku-pirikara-itame.png",
+        hasImage: false,
+      },
+      {
+        id: "side-renkon-kinpira",
+        name: "れんこんのきんぴら",
+        category: "side",
+        moods: ["和食", "あっさり"],
+        tags: ["れんこん", "にんじん", "野菜"],
+        nutritionTags: ["食物繊維", "ビタミン", "ミネラル"],
+        cookingTime: 15,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "れんこん", amount: "80g" },
+              { name: "にんじん", amount: "1/4本" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "しょうゆ", amount: "小さじ2" },
+              { name: "みりん", amount: "小さじ2" },
+              { name: "ごま油", amount: "小さじ1" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "れんこんとにんじんは細切りにする。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンでAを炒める。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "Bを加えて汁気を飛ばしながら炒める。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/renkon-kinpira.png",
+        hasImage: false,
+      },
+      {
+        id: "side-tomato-egg-chinese-stir-fry",
+        name: "トマトと卵の中華炒め",
+        category: "side",
+        moods: ["中華", "あっさり"],
+        tags: ["トマト", "卵", "野菜"],
+        nutritionTags: ["たんぱく質", "ビタミン", "脂質"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+          {
+            label: "A",
+            items: [
+              { name: "トマト", amount: "1個" },
+              { name: "卵", amount: "2個" },
+            ],
+          },
+          {
+            label: "B",
+            items: [
+              { name: "鶏ガラスープの素", amount: "小さじ1" },
+              { name: "しょうゆ", amount: "小さじ1/2" },
+              { name: "油", amount: "小さじ2" },
+            ],
+          },
+        ],
+        steps: [
+          {
+            description: "トマトはくし形に切り、卵は溶いておく。",
+            ingredientGroupLabels: ["A"],
+          },
+          {
+            description: "フライパンで卵を軽く炒め、トマトを加える。",
+            ingredientGroupLabels: ["A", "B"],
+          },
+          {
+            description: "Bで味をととのえる。",
+            ingredientGroupLabels: ["B"],
+          },
+        ],
+        imageUrl: "/images/side-dishes/tomato-egg-chinese-stir-fry.png",
+        hasImage: false,
+      },
+      
+      
+      
+      
+      
+      
+      
+      
+      {
         id: "side-daikon-aburaage-satto-ni",
         name: "大根と油揚げのさっと煮",
         category: "side",
@@ -1737,5 +2596,638 @@ export const RAW_SIDE_DISHES_BATCH_01 = [
         ],
         imageUrl: "/images/side-dishes/moyashi-nira-pirikara-itame.png",
         hasImage: false,
-      },
+      },{
+        id: "side-pepper-jako-stir-fry",
+        category: "side",
+        name: "ピーマンとじゃこの炒め物",
+        moods: ["和食","あっさり"],
+        tags: ["ピーマン","じゃこ"],
+        nutritionTags: ["カルシウム","ビタミン"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "ピーマン", amount: "4個" },
+        { name: "ちりめんじゃこ", amount: "20g" },
+        { name: "ごま油", amount: "小さじ1" },
+        { name: "しょうゆ", amount: "小さじ1" },
+        { name: "白ごま", amount: "小さじ1" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "ピーマンは縦半分に切って種を取り、細切りにする。" },
+        { description: "フライパンにごま油を熱し、ピーマンとちりめんじゃこを中火で炒める。" },
+        { description: "しょうゆを回し入れて全体にからめ、白ごまをふって仕上げる。" }
+        ],
+        imageUrl: "/images/side-dishes/pepper-jako-stir-fry.png",
+        hasImage: false
+        },
+        {
+        id: "side-hakusai-ham-cream-ni",
+        category: "side",
+        name: "白菜とハムのクリーム煮",
+        moods: ["洋食","こってり"],
+        tags: ["白菜","ハム","牛乳"],
+        nutritionTags: ["たんぱく質","カルシウム"],
+        cookingTime: 15,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "白菜", amount: "3枚" },
+        { name: "ハム", amount: "4枚" },
+        { name: "牛乳", amount: "150ml" },
+        { name: "バター", amount: "10g" },
+        { name: "小麦粉", amount: "大さじ1" },
+        { name: "コンソメ", amount: "小さじ1" },
+        { name: "塩", amount: "小さじ1/4" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "白菜はざく切りにし、ハムは短冊切りにする。" },
+        { description: "フライパンにバターを熱して白菜とハムを炒め、小麦粉を加えてなじませる。" },
+        { description: "牛乳とコンソメと塩を加え、とろみがつくまで煮る。" }
+        ],
+        imageUrl: "/images/side-dishes/hakusai-ham-cream-ni.png",
+        hasImage: false
+        },
+        {
+        id: "side-cucumber-wakame-goma-ae",
+        category: "side",
+        name: "きゅうりとわかめのごま和え",
+        moods: ["和食","あっさり"],
+        tags: ["きゅうり","わかめ","ごま"],
+        nutritionTags: ["食物繊維","ミネラル"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "きゅうり", amount: "1本" },
+        { name: "乾燥わかめ", amount: "3g" },
+        { name: "すりごま", amount: "大さじ1" },
+        { name: "しょうゆ", amount: "小さじ2" },
+        { name: "砂糖", amount: "小さじ1" },
+        { name: "酢", amount: "小さじ1" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "きゅうりは薄切りにし、わかめは水で戻して水気を切る。" },
+        { description: "ボウルにきゅうりとわかめを入れて軽く混ぜる。" },
+        { description: "すりごま、しょうゆ、砂糖、酢を加えて和える。" }
+        ],
+        imageUrl: "/images/side-dishes/cucumber-wakame-goma-ae.png",
+        hasImage: false
+        },
+        {
+        id: "side-daikon-bacon-consomme-ni",
+        category: "side",
+        name: "大根とベーコンのコンソメ煮",
+        moods: ["洋食","あっさり"],
+        tags: ["大根","ベーコン"],
+        nutritionTags: ["食物繊維","たんぱく質"],
+        cookingTime: 20,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "大根", amount: "1/4本" },
+        { name: "ベーコン", amount: "2枚" },
+        { name: "水", amount: "250ml" },
+        { name: "コンソメ", amount: "小さじ1" },
+        { name: "塩", amount: "小さじ1/4" },
+        { name: "こしょう", amount: "少々" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "大根はいちょう切りにし、ベーコンは2cm幅に切る。" },
+        { description: "鍋に大根、ベーコン、水を入れて中火で煮る。" },
+        { description: "大根がやわらかくなったらコンソメ、塩、こしょうで味をととのえる。" }
+        ],
+        imageUrl: "/images/side-dishes/daikon-bacon-consomme-ni.png",
+        hasImage: false
+        },
+        {
+        id: "side-eggplant-pepper-agebitashi",
+        category: "side",
+        name: "なすとピーマンの揚げびたし",
+        moods: ["和食","あっさり"],
+        tags: ["なす","ピーマン"],
+        nutritionTags: ["ビタミン","食物繊維"],
+        cookingTime: 20,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "なす", amount: "2本" },
+        { name: "ピーマン", amount: "3個" },
+        { name: "サラダ油", amount: "大さじ3" },
+        { name: "めんつゆ", amount: "大さじ3" },
+        { name: "水", amount: "大さじ3" },
+        { name: "おろししょうが", amount: "小さじ1/2" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "なすは縦半分に切って食べやすい大きさにし、ピーマンは縦半分に切る。" },
+        { description: "フライパンにサラダ油を熱し、なすとピーマンを両面こんがり焼く。" },
+        { description: "めんつゆ、水、おろししょうがを合わせたつゆに熱いうちに漬ける。" }
+        ],
+        imageUrl: "/images/side-dishes/eggplant-pepper-agebitashi.png",
+        hasImage: false
+        },
+        {
+        id: "side-broccoli-tuna-mayo-ae",
+        category: "side",
+        name: "ブロッコリーとツナのマヨ和え",
+        moods: ["洋食","あっさり"],
+        tags: ["ブロッコリー","ツナ"],
+        nutritionTags: ["たんぱく質","ビタミン"],
+        cookingTime: 10,
+        budgetLevel: "ふつう",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "ブロッコリー", amount: "1/2株" },
+        { name: "ツナ缶", amount: "1缶" },
+        { name: "マヨネーズ", amount: "大さじ2" },
+        { name: "しょうゆ", amount: "小さじ1/2" },
+        { name: "塩", amount: "少々" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "ブロッコリーは小房に分けてゆで、水気を切る。" },
+        { description: "ツナは油を切り、ブロッコリーと一緒にボウルに入れる。" },
+        { description: "マヨネーズ、しょうゆ、塩を加えて全体を和える。" }
+        ],
+        imageUrl: "/images/side-dishes/broccoli-tuna-mayo-ae.png",
+        hasImage: false
+        },
+        {
+        id: "side-komatsuna-shimeji-butter-stir-fry",
+        category: "side",
+        name: "小松菜としめじのバター炒め",
+        moods: ["洋食","こってり"],
+        tags: ["小松菜","しめじ"],
+        nutritionTags: ["ビタミン","食物繊維"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "小松菜", amount: "1束" },
+        { name: "しめじ", amount: "1パック" },
+        { name: "バター", amount: "10g" },
+        { name: "しょうゆ", amount: "小さじ1" },
+        { name: "塩", amount: "少々" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "小松菜は4cm幅に切り、しめじは石づきを取ってほぐす。" },
+        { description: "フライパンにバターを熱し、しめじと小松菜を中火で炒める。" },
+        { description: "しょうゆと塩で味をととのえて仕上げる。" }
+        ],
+        imageUrl: "/images/side-dishes/komatsuna-shimeji-butter-stir-fry.png",
+        hasImage: false
+        },
+        {
+        id: "side-carrot-egg-chinese-stir-fry",
+        category: "side",
+        name: "にんじんと卵の中華炒め",
+        moods: ["中華","あっさり"],
+        tags: ["にんじん","卵"],
+        nutritionTags: ["たんぱく質","ビタミン"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "にんじん", amount: "1本" },
+        { name: "卵", amount: "2個" },
+        { name: "ごま油", amount: "小さじ1" },
+        { name: "鶏ガラスープの素", amount: "小さじ1" },
+        { name: "しょうゆ", amount: "小さじ1" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "にんじんは細切りにし、卵は溶いておく。" },
+        { description: "フライパンにごま油を熱し、にんじんを炒めてしんなりさせる。" },
+        { description: "卵、鶏ガラスープの素、しょうゆを加えて炒め合わせる。" }
+        ],
+        imageUrl: "/images/side-dishes/carrot-egg-chinese-stir-fry.png",
+        hasImage: false
+        },
+        {
+        id: "side-cabbage-aburaage-miso-stir-fry",
+        category: "side",
+        name: "キャベツと油揚げの味噌炒め",
+        moods: ["和食","こってり"],
+        tags: ["キャベツ","油揚げ"],
+        nutritionTags: ["食物繊維","たんぱく質"],
+        cookingTime: 10,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "キャベツ", amount: "1/4玉" },
+        { name: "油揚げ", amount: "1枚" },
+        { name: "味噌", amount: "大さじ1" },
+        { name: "みりん", amount: "大さじ1" },
+        { name: "砂糖", amount: "小さじ1" },
+        { name: "サラダ油", amount: "小さじ1" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "キャベツはざく切りにし、油揚げは短冊切りにする。" },
+        { description: "フライパンにサラダ油を熱し、キャベツと油揚げを炒める。" },
+        { description: "味噌、みりん、砂糖を加えて全体にからめる。" }
+        ],
+        imageUrl: "/images/side-dishes/cabbage-aburaage-miso-stir-fry.png",
+        hasImage: false
+        },
+        {
+        id: "side-potato-corn-salad",
+        category: "side",
+        name: "じゃがいもとコーンのサラダ",
+        moods: ["洋食","あっさり"],
+        tags: ["じゃがいも","コーン"],
+        nutritionTags: ["炭水化物","食物繊維"],
+        cookingTime: 15,
+        budgetLevel: "節約",
+        ingredientGroups: [
+        {
+        label: "A",
+        items: [
+        { name: "じゃがいも", amount: "2個" },
+        { name: "コーン", amount: "50g" },
+        { name: "マヨネーズ", amount: "大さじ2" },
+        { name: "酢", amount: "小さじ1" },
+        { name: "塩", amount: "小さじ1/4" },
+        { name: "こしょう", amount: "少々" }
+        ]
+        }
+        ],
+        steps: [
+        { description: "じゃがいもは皮をむいて一口大に切り、やわらかくゆでる。" },
+        { description: "じゃがいもの湯を切って軽くつぶし、コーンを加える。" },
+        { description: "マヨネーズ、酢、塩、こしょうで和えて仕上げる。" }
+        ],
+        imageUrl: "/images/side-dishes/potato-corn-salad.png",
+        hasImage: false
+        },{
+            id: "side-tomato-shiso-ae",
+            category: "side",
+            name: "トマトと大葉の和え物",
+            moods: ["和食","あっさり"],
+            tags: ["トマト","大葉"],
+            nutritionTags: ["ビタミン"],
+            cookingTime: 5,
+            budgetLevel: "節約",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "トマト", amount: "2個" },
+            { name: "大葉", amount: "5枚" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "しょうゆ", amount: "小さじ2" },
+            { name: "ごま油", amount: "小さじ1" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "トマトはくし切りにし、大葉は細切りにする。" },
+            { description: "ボウルにトマトと大葉を入れて軽く混ぜる。" },
+            { description: "Bを加えて全体を和える。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/tomato-shiso-ae.png",
+            hasImage: false
+            },
+            {
+            id: "side-moyashi-tuna-ponzu-ae",
+            category: "side",
+            name: "もやしとツナのポン酢和え",
+            moods: ["和食","あっさり"],
+            tags: ["もやし","ツナ"],
+            nutritionTags: ["たんぱく質","食物繊維"],
+            cookingTime: 10,
+            budgetLevel: "節約",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "もやし", amount: "1袋" },
+            { name: "ツナ缶", amount: "1缶" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "ポン酢", amount: "大さじ2" },
+            { name: "ごま油", amount: "小さじ1" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "もやしはさっとゆでて水気をしっかり切る。" },
+            { description: "ツナは油を切り、もやしと合わせる。" },
+            { description: "Bを加えてよく和える。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/moyashi-tuna-ponzu-ae.png",
+            hasImage: false
+            },
+            {
+            id: "side-renkon-bacon-stir-fry",
+            category: "side",
+            name: "れんこんとベーコンの炒め物",
+            moods: ["洋食","こってり"],
+            tags: ["れんこん","ベーコン"],
+            nutritionTags: ["食物繊維","脂質"],
+            cookingTime: 15,
+            budgetLevel: "ふつう",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "れんこん", amount: "150g" },
+            { name: "ベーコン", amount: "2枚" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "バター", amount: "10g" },
+            { name: "しょうゆ", amount: "小さじ1" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "れんこんは薄切りにし、ベーコンは細切りにする。" },
+            { description: "フライパンでベーコンを炒め、れんこんを加えて火を通す。" },
+            { description: "Bを加えて全体にからめる。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/renkon-bacon-stir-fry.png",
+            hasImage: false
+            },
+            {
+            id: "side-mizuna-ham-salad",
+            category: "side",
+            name: "水菜とハムのサラダ",
+            moods: ["洋食","あっさり"],
+            tags: ["水菜","ハム"],
+            nutritionTags: ["ビタミン","たんぱく質"],
+            cookingTime: 5,
+            budgetLevel: "ふつう",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "水菜", amount: "1束" },
+            { name: "ハム", amount: "3枚" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "マヨネーズ", amount: "大さじ2" },
+            { name: "しょうゆ", amount: "小さじ1/2" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "水菜は5cm幅に切り、ハムは細切りにする。" },
+            { description: "ボウルに水菜とハムを入れる。" },
+            { description: "Bを加えて全体を和える。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/mizuna-ham-salad.png",
+            hasImage: false
+            },
+            {
+            id: "side-chingensai-egg-oyster-stir-fry",
+            category: "side",
+            name: "チンゲン菜と卵のオイスター炒め",
+            moods: ["中華","こってり"],
+            tags: ["チンゲン菜","卵"],
+            nutritionTags: ["たんぱく質","ビタミン"],
+            cookingTime: 10,
+            budgetLevel: "節約",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "チンゲン菜", amount: "1株" },
+            { name: "卵", amount: "2個" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "オイスターソース", amount: "小さじ2" },
+            { name: "しょうゆ", amount: "小さじ1" },
+            { name: "ごま油", amount: "小さじ1" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "チンゲン菜はざく切りにし、卵は溶いておく。" },
+            { description: "フライパンで卵を半熟に炒めて取り出す。" },
+            { description: "チンゲン菜とBを加えて炒め、卵を戻して混ぜる。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/chingensai-egg-oyster-stir-fry.png",
+            hasImage: false
+            },
+            {
+            id: "side-eggplant-tuna-stir-fry",
+            category: "side",
+            name: "なすとツナの炒め物",
+            moods: ["和食","こってり"],
+            tags: ["なす","ツナ"],
+            nutritionTags: ["食物繊維","たんぱく質"],
+            cookingTime: 15,
+            budgetLevel: "節約",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "なす", amount: "2本" },
+            { name: "ツナ缶", amount: "1缶" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "しょうゆ", amount: "小さじ2" },
+            { name: "みりん", amount: "小さじ2" },
+            { name: "サラダ油", amount: "小さじ2" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "なすは乱切りにし、ツナは油を切る。" },
+            { description: "フライパンでなすを炒め、やわらかくする。" },
+            { description: "ツナとBを加えて全体を炒め合わせる。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/eggplant-tuna-stir-fry.png",
+            hasImage: false
+            },
+            {
+            id: "side-satsumaimo-butter-amani",
+            category: "side",
+            name: "さつまいもとバターの甘煮",
+            moods: ["洋食","こってり"],
+            tags: ["さつまいも","バター"],
+            nutritionTags: ["炭水化物"],
+            cookingTime: 20,
+            budgetLevel: "節約",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "さつまいも", amount: "1本" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "バター", amount: "10g" },
+            { name: "砂糖", amount: "大さじ1" },
+            { name: "水", amount: "150ml" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "さつまいもは輪切りにする。" },
+            { description: "鍋にさつまいもと水を入れて中火で煮る。" },
+            { description: "Bを加えて水分が少なくなるまで煮る。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/satsumaimo-butter-amani.png",
+            hasImage: false
+            },
+            {
+            id: "side-daikon-hikiniku-soboro-ni",
+            category: "side",
+            name: "大根とひき肉のそぼろ煮",
+            moods: ["和食","こってり"],
+            tags: ["大根","ひき肉"],
+            nutritionTags: ["たんぱく質","食物繊維"],
+            cookingTime: 20,
+            budgetLevel: "ふつう",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "大根", amount: "1/4本" },
+            { name: "豚ひき肉", amount: "150g" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "しょうゆ", amount: "大さじ1" },
+            { name: "みりん", amount: "大さじ1" },
+            { name: "砂糖", amount: "小さじ1" },
+            { name: "水", amount: "200ml" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "大根は角切りにする。" },
+            { description: "鍋でひき肉を炒め、大根を加える。" },
+            { description: "Bを加えて大根がやわらかくなるまで煮る。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/daikon-hikiniku-soboro-ni.png",
+            hasImage: false
+            },
+            {
+            id: "side-cabbage-corn-butter-stir-fry",
+            category: "side",
+            name: "キャベツとコーンのバター炒め",
+            moods: ["洋食","こってり"],
+            tags: ["キャベツ","コーン"],
+            nutritionTags: ["ビタミン","炭水化物"],
+            cookingTime: 10,
+            budgetLevel: "節約",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "キャベツ", amount: "1/4玉" },
+            { name: "コーン", amount: "50g" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "バター", amount: "10g" },
+            { name: "塩", amount: "小さじ1/4" },
+            { name: "こしょう", amount: "少々" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "キャベツはざく切りにする。" },
+            { description: "フライパンでキャベツとコーンを炒める。" },
+            { description: "Bを加えて全体にからめる。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/cabbage-corn-butter-stir-fry.png",
+            hasImage: false
+            },
+            {
+            id: "side-mushroom-tuna-wafu-pasta-stir-fry",
+            category: "side",
+            name: "きのことツナの和風パスタ炒め",
+            moods: ["洋食","こってり"],
+            tags: ["パスタ","きのこ","ツナ"],
+            nutritionTags: ["炭水化物","たんぱく質"],
+            cookingTime: 20,
+            budgetLevel: "ふつう",
+            ingredientGroups: [
+            {
+            label: "A",
+            items: [
+            { name: "スパゲッティ", amount: "100g" },
+            { name: "しめじ", amount: "1パック" },
+            { name: "ツナ缶", amount: "1缶" }
+            ]
+            },
+            {
+            label: "B",
+            items: [
+            { name: "しょうゆ", amount: "小さじ2" },
+            { name: "バター", amount: "10g" },
+            { name: "にんにく", amount: "1片" }
+            ]
+            }
+            ],
+            steps: [
+            { description: "スパゲッティは表示通りにゆでる。" },
+            { description: "フライパンでにんにく、きのこ、ツナを炒める。" },
+            { description: "パスタとBを加えて全体を炒め合わせる。", ingredientGroupLabels: ["B"] }
+            ],
+            imageUrl: "/images/side-dishes/mushroom-tuna-wafu-pasta-stir-fry.png",
+            hasImage: false
+            },
+            
   ];

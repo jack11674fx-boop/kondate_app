@@ -59,6 +59,11 @@ const [loadingRecipeId, setLoadingRecipeId] = useState("");
     }, 3000);
   };
 
+  const getDishImageUrlByName = (dishName: string) => {
+    const matchedDish = DISHES.find((dish) => dish.name === dishName);
+    return matchedDish?.imageUrl || "";
+  };
+
   const handleDeleteFavorite = (id: string) => {
     try {
       const updated = favoriteMenus.filter((menu) => menu.id !== id);
@@ -353,10 +358,6 @@ const handleEditConditions = (menu: MenuItem) => {
     return `材料（${labels}）`;
   };
 
-  const getDishImageUrlByName = (dishName: string) => {
-    const matchedDish = DISHES.find((dish) => dish.name === dishName);
-    return matchedDish?.imageUrl || "";
-  };
   
   const renderRecipeDishImage = (dishName: string) => {
     const imageUrl = getDishImageUrlByName(dishName);
@@ -369,7 +370,7 @@ const handleEditConditions = (menu: MenuItem) => {
       <img
         src={imageUrl}
         alt={dishName}
-        className="mb-3 h-36 w-full rounded-2xl object-cover"
+        className="mb-3 h-50 w-full rounded-2xl object-cover"
       />
     );
   };
@@ -638,18 +639,45 @@ const filteredMenus = currentMenus.filter((menu) => {
                             )}
                         </div>
                     )}
+                  <div className="mb-4 space-y-4 text-sm leading-6">
                   <div>
-                    <p className="font-semibold text-gray-800">主菜</p>
-                    <p className="text-gray-600">{menu.mainDish}</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800">副菜</p>
-                    <p className="text-gray-600">{menu.sideDish}</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800">汁物</p>
-                    <p className="text-gray-600">{menu.soup}</p>
-                  </div>
+  <p className="font-semibold text-gray-800">主菜</p>
+
+  {getDishImageUrlByName(menu.mainDish) ? (
+    <img
+      src={getDishImageUrlByName(menu.mainDish)}
+      alt={menu.mainDish}
+      className="mt-2 mb-2 h-50 w-full rounded-2xl object-cover"
+    />
+  ) : null}
+
+  <p className="text-gray-600">{menu.mainDish}</p>
+</div>
+
+  <div>
+    <p className="font-semibold text-gray-800">副菜</p>
+    {getDishImageUrlByName(menu.sideDish) ? (
+      <img
+        src={getDishImageUrlByName(menu.sideDish)}
+        alt={menu.sideDish}
+        className="mt-2 mb-2 h-50 w-full rounded-2xl object-cover"
+      />
+    ) : null}
+    <p className="text-gray-600">{menu.sideDish}</p>
+  </div>
+
+  <div>
+    <p className="font-semibold text-gray-800">汁物</p>
+    {getDishImageUrlByName(menu.soup) ? (
+      <img
+        src={getDishImageUrlByName(menu.soup)}
+        alt={menu.soup}
+        className="mt-2 mb-2 h-48 w-full rounded-2xl object-cover"
+      />
+    ) : null}
+    <p className="text-gray-600">{menu.soup}</p>
+  </div>
+</div>
                 </div>
 
                 <div className="mb-3 rounded-2xl bg-[#fff7fb] px-4 py-3 text-sm text-gray-600">

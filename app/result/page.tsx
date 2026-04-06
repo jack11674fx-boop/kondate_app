@@ -472,6 +472,14 @@ const handleDecideMenu = (menu: MenuItem) => {
               setMenuImageMap({});
             }
           }, [menus]);
+
+          const getDishImageUrlByName = (dishName: string) => {
+            const matchedDish = DISHES.find((dish) => dish.name === dishName);
+            return matchedDish?.imageUrl || "";
+          };
+
+
+
           useEffect(() => {
             try {
               const existing = localStorage.getItem("menuHistory");
@@ -750,11 +758,6 @@ showToast("保存しました", "success");
             return `材料（${labels}）`;
           };
 
-          const getDishImageUrlByName = (dishName: string) => {
-            const matchedDish = DISHES.find((dish) => dish.name === dishName);
-            return matchedDish?.imageUrl || "";
-          };
-          
           const renderRecipeDishImage = (dishName: string) => {
             const imageUrl = getDishImageUrlByName(dishName);
           
@@ -1001,28 +1004,44 @@ showToast("保存しました", "success");
   <img
     src={menuImageMap[menu.id]}
     alt={menu.mainDish}
-    className="mb-4 h-48 w-full rounded-[24px] object-cover"
+    className="mb-4 h-50 w-full rounded-[24px] object-cover"
   />
 ) : (
-  <div className="mb-4 flex h-48 w-full items-center justify-center rounded-[24px] bg-pink-50 text-sm text-gray-500">
+  <div className="mb-4 flex h-50 w-full items-center justify-center rounded-[24px] bg-pink-50 text-sm text-gray-500">
     画像を読み込み中...
   </div>
 )}
 
-              <div className="mb-4 space-y-3 text-sm leading-6">
-                <div>
-                  <p className="font-semibold text-gray-800">主菜</p>
-                  <p className="text-gray-600">{menu.mainDish}</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800">副菜</p>
-                  <p className="text-gray-600">{menu.sideDish}</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800">汁物</p>
-                  <p className="text-gray-600">{menu.soup}</p>
-                </div>
-              </div>
+<div className="mb-4 space-y-4 text-sm leading-6">
+  <div>
+    <p className="font-semibold text-gray-800">主菜</p>
+    <p className="mb-2 text-gray-600">{menu.mainDish}</p>
+  </div>
+
+  <div>
+    <p className="font-semibold text-gray-800">副菜</p>
+    {getDishImageUrlByName(menu.sideDish) ? (
+      <img
+        src={getDishImageUrlByName(menu.sideDish)}
+        alt={menu.sideDish}
+        className="mt-2 mb-2 h-50 w-full rounded-2xl object-cover"
+      />
+    ) : null}
+    <p className="text-gray-600">{menu.sideDish}</p>
+  </div>
+
+  <div>
+    <p className="font-semibold text-gray-800">汁物</p>
+    {getDishImageUrlByName(menu.soup) ? (
+      <img
+        src={getDishImageUrlByName(menu.soup)}
+        alt={menu.soup}
+        className="mt-2 mb-2 h-50 w-full rounded-2xl object-cover"
+      />
+    ) : null}
+    <p className="text-gray-600">{menu.soup}</p>
+  </div>
+</div>
 
               <div className="mb-3 rounded-2xl bg-[#fff7fb] px-4 py-3 text-sm text-gray-600">
                 <p className="mb-1 font-semibold text-gray-800">予算感</p>
