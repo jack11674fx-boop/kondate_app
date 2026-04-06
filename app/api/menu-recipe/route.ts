@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import { DISHES } from "@/lib/menu-data";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,31 +14,54 @@ type MenuRecipeRequest = {
 };
 
 type RecipeIngredientItem = {
-    name: string;
-    amount: string;
-  };
-  
-  type RecipeStepResponse = {
-    mainDishIngredients: RecipeIngredientItem[];
-    sideDishIngredients: RecipeIngredientItem[];
-    soupIngredients: RecipeIngredientItem[];
-    mainDishSteps: string[];
-    sideDishSteps: string[];
-    soupSteps: string[];
-  };
+  name: string;
+  amount: string;
+};
 
-export async function POST(request: Request) {
-  try {
-    const body = (await request.json()) as MenuRecipeRequest;
+type RecipeStepResponse = {
+  mainDishIngredients: RecipeIngredientItem[];
+  sideDishIngredients: RecipeIngredientItem[];
+  soupIngredients: RecipeIngredientItem[];
+  mainDishSteps: string[];
+  sideDishSteps: string[];
+  soupSteps: string[];
+};
 
-    const {
-      familySize = "3",
-      mainDish = "",
-      sideDish = "",
-      soup = "",
-    } = body;
+function findDishByName(name: string) {
+  return DISHES.find((dish) => dish.name === name);
+}
 
-    const prompt = `
+function isValidIngredientArray(value: unknown): value is RecipeIngredientItem[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (item) =>
+        item &&
+        typeof item === "object" &&
+        typeof item.name === "string" &&
+        item.name.trim() !== "" &&
+        typeof item.amount === "string" &&
+        item.amount.trim() !== ""
+    )
+  );
+}
+
+function isValidStepArray(value: unknown): value is string[] {
+  return (
+    Array.isArray(value) &&
+    value.every((item) => typeof item === "string" && item.trim() !== "")
+  );
+}
+
+async function generateRecipeByAI(input: MenuRecipeRequest): Promise<RecipeStepResponse> {
+  const {
+    familySize = "3",
+    mainDish = "",
+    sideDish = "",
+    soup = "",
+  } = input;
+
+  const prompt = `
 あなたは家庭向け献立アプリの料理アシスタントです。
 以下の献立について、初心者でもわかる簡単な作り方を日本語で作成してください。
 
@@ -75,37 +99,74 @@ export async function POST(request: Request) {
 }
 `;
 
-    const response = await client.responses.create({
-      model: "gpt-5.4",
-      input: prompt,
-    });
+  const response = await client.responses.create({
+    model: "gpt-5.4",
+    input: prompt,
+  });
 
-    const text = response.output_text.trim();
-    const parsed = JSON.parse(text) as Partial<RecipeStepResponse>;
+  const text = response.output_text.trim();
+  const parsed = JSON.parse(text) as Partial<RecipeStepResponse>;
 
-    return NextResponse.json({
+  return {
+    mainDishIngredients: isValidIngredientArray(parsed.mainDishIngredients)
+      ? parsed.mainDishIngredients
+      : [],
+    sideDishIngredients: isValidIngredientArray(parsed.sideDishIngredients)
+      ? parsed.sideDishIngredients
+      : [],
+    soupIngredients: isValidIngredientArray(parsed.soupIngredients)
+      ? parsed.soupIngredients
+      : [],
+    mainDishSteps: isValidStepArray(parsed.mainDishSteps) ? parsed.mainDishSteps : [],
+    sideDishSteps: isValidStepArray(parsed.sideDishSteps) ? parsed.sideDishSteps : [],
+    soupSteps: isValidStepArray(parsed.soupSteps) ? parsed.soupSteps : [],
+  };
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = (await request.json()) as MenuRecipeRequest;
+
+    const {
+      familySize = "3",
+      mainDish = "",
+      sideDish = "",
+      soup = "",
+    } = body;
+
+    const mainDishData = findDishByName(mainDish);
+    const sideDishData = findDishByName(sideDish);
+    const soupData = findDishByName(soup);
+
+    const allFound = Boolean(mainDishData && sideDishData && soupData);
+
+    if (allFound) {
+      return NextResponse.json({
         success: true,
         recipe: {
-          mainDishIngredients: Array.isArray(parsed.mainDishIngredients)
-            ? parsed.mainDishIngredients
-            : [],
-          sideDishIngredients: Array.isArray(parsed.sideDishIngredients)
-            ? parsed.sideDishIngredients
-            : [],
-          soupIngredients: Array.isArray(parsed.soupIngredients)
-            ? parsed.soupIngredients
-            : [],
-          mainDishSteps: Array.isArray(parsed.mainDishSteps)
-            ? parsed.mainDishSteps
-            : [],
-          sideDishSteps: Array.isArray(parsed.sideDishSteps)
-            ? parsed.sideDishSteps
-            : [],
-          soupSteps: Array.isArray(parsed.soupSteps)
-            ? parsed.soupSteps
-            : [],
+          mainDishIngredients: mainDishData?.ingredients ?? [],
+          sideDishIngredients: sideDishData?.ingredients ?? [],
+          soupIngredients: soupData?.ingredients ?? [],
+          mainDishSteps: mainDishData?.steps ?? [],
+          sideDishSteps: sideDishData?.steps ?? [],
+          soupSteps: soupData?.steps ?? [],
         },
+        source: "db",
       });
+    }
+
+    const aiRecipe = await generateRecipeByAI({
+      familySize,
+      mainDish,
+      sideDish,
+      soup,
+    });
+
+    return NextResponse.json({
+      success: true,
+      recipe: aiRecipe,
+      source: "ai",
+    });
   } catch (error: unknown) {
     console.error("menu-recipe POST error:", error);
 
@@ -116,13 +177,13 @@ export async function POST(request: Request) {
       {
         success: false,
         recipe: {
-            mainDishIngredients: [],
-            sideDishIngredients: [],
-            soupIngredients: [],
-            mainDishSteps: [],
-            sideDishSteps: [],
-            soupSteps: [],
-          },
+          mainDishIngredients: [],
+          sideDishIngredients: [],
+          soupIngredients: [],
+          mainDishSteps: [],
+          sideDishSteps: [],
+          soupSteps: [],
+        },
         errorMessage: message,
       },
       { status: 500 }

@@ -1,31 +1,23 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { buildRecipeFromDb } from "@/lib/menu-recipe-db";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Toast from "@/components/Toast";
+import {
+  MAIN_DISHES,
+  SIDE_DISHES,
+  SOUP_DISHES,
+  type DishData,
+  DISHES,
+} from "@/lib/menu-data";
+import type {
+  MenuItem,
+  RecipeIngredientItem,
+  RecipeSteps,
+  ShoppingListItem,
+} from "@/lib/menu-types";
 
-type MenuItem = {
-    id: string;
-    title: string;
-    mainDish: string;
-    sideDish: string;
-    soup: string;
-    estimatedTime: string;
-    budgetComment: string;
-    nutritionComment: string;
-    reason: string;
-    aiReason?: string;
-    shoppingList?: ShoppingListItem[];
-    createdAt: string;
-    sourceConditions: {
-        familySize: string;
-        cookingTime: string;
-        budgetLevel: string;
-        avoidIngredients: string;
-        preferredIngredients: string;
-        mood: string;
-      };
-  };
 
   type GeneratedMenuFromAI = {
     title: string;
@@ -35,41 +27,11 @@ type MenuItem = {
     reason: string;
   };
 
-  type ShoppingListItem = {
-    name: string;
-    amount: string;
-  };
-
-  type RecipeIngredientItem = {
-    name: string;
-    amount: string;
-  };
-  
-  type RecipeSteps = {
-    mainDishIngredients: RecipeIngredientItem[];
-    sideDishIngredients: RecipeIngredientItem[];
-    soupIngredients: RecipeIngredientItem[];
-    mainDishSteps: string[];
-    sideDishSteps: string[];
-    soupSteps: string[];
-  };
 
   type ToastState = {
     message: string;
     type: "success" | "error";
   } | null;
-
-  type DishOption = {
-    name: string;
-    tags: string[];
-  };
-
-  type NamedFoodOption = {
-    name: string;
-    tags: string[];
-  };
-
-  type MaybeTaggedFoodOption = string | NamedFoodOption;
 
 
 function ResultContent() {
@@ -102,6 +64,7 @@ const [recipeStepsMap, setRecipeStepsMap] = useState<Record<string, RecipeSteps>
 const [loadingRecipeId, setLoadingRecipeId] = useState("");
 const [toast, setToast] = useState<ToastState>(null);
 const [decidedMenuKey, setDecidedMenuKey] = useState("");
+const [menuImageMap, setMenuImageMap] = useState<Record<string, string>>({});
 
 const getMenuDecisionKey = (menu: MenuItem) => {
   return `${menu.title}__${menu.mainDish}__${menu.sideDish}__${menu.soup}`;
@@ -136,266 +99,6 @@ const handleDecideMenu = (menu: MenuItem) => {
     }
   };
 
-    const dishOptions = useMemo<
-  Record<
-    string,
-    {
-      mainDishes: DishOption[];
-      sideDishes: MaybeTaggedFoodOption[];
-      soups: MaybeTaggedFoodOption[];
-    }
-  >
->(() => {
-
-  return {
-    和食: {
-        mainDishes: [
-            { name: "鶏の照り焼き", tags: ["肉", "鶏肉"] },
-            { name: "鮭の塩焼き", tags: ["魚", "鮭"] },
-            { name: "豚のしょうが焼き", tags: ["肉", "豚肉"] },
-            { name: "肉じゃが", tags: ["肉", "牛肉", "じゃがいも", "玉ねぎ"] },
-            { name: "さばの味噌煮", tags: ["魚", "さば"] },
-            { name: "ぶりの照り焼き", tags: ["魚", "ぶり"] },
-            { name: "鶏むね肉の塩こうじ焼き", tags: ["肉", "鶏肉"] },
-            { name: "豚しゃぶ", tags: ["肉", "豚肉"] },
-            { name: "鶏の甘辛煮", tags: ["肉", "鶏肉"] },
-            { name: "厚揚げと豚肉の炒め煮", tags: ["肉", "厚揚げ", "豚肉"] },
-            { name: "さわらの西京焼き", tags: ["魚", "さわら"] },
-            { name: "和風おろしハンバーグ", tags: ["肉", "ひき肉", "大根"] },
-          ],
-          sideDishes: [
-            { name: "ほうれん草のおひたし", tags: ["ほうれん草"] },
-            { name: "ひじきの煮物", tags: ["ひじき"] },
-            { name: "きゅうりの酢の物", tags: ["きゅうり"] },
-            { name: "冷ややっこ", tags: ["豆腐"] },
-            { name: "かぼちゃの煮物", tags: ["かぼちゃ"] },
-            { name: "小松菜のごま和え", tags: ["小松菜", "ごま"] },
-            { name: "切り干し大根", tags: ["大根"] },
-            { name: "きんぴらごぼう", tags: ["ごぼう"] },
-            { name: "キャベツの浅漬け", tags: ["キャベツ"] },
-            { name: "なすの煮びたし", tags: ["なす"] },
-          ],
-          soups: [
-            { name: "豆腐とわかめの味噌汁", tags: ["豆腐", "わかめ"] },
-            { name: "大根の味噌汁", tags: ["大根"] },
-            { name: "白菜の味噌汁", tags: ["白菜"] },
-            { name: "じゃがいもの味噌汁", tags: ["じゃがいも"] },
-            { name: "なめこの味噌汁", tags: ["なめこ", "きのこ"] },
-            { name: "玉ねぎの味噌汁", tags: ["玉ねぎ"] },
-            { name: "豆腐とねぎのすまし汁", tags: ["豆腐", "ねぎ"] },
-            { name: "油揚げとわかめの味噌汁", tags: ["油揚げ", "わかめ"] },
-          ],
-    },
-    洋食: {
-      mainDishes: [
-        { name: "ハンバーグ", tags: ["ひき肉"] },
-        { name: "チキンソテー", tags: ["鶏肉"] },
-        { name: "鮭のムニエル", tags: ["鮭", "魚"] },
-        { name: "ポークチャップ", tags: ["豚肉"] },
-        { name: "ミートボールのトマト煮", tags: ["ひき肉", "トマト"] },
-        { name: "チキンのトマト煮", tags: ["鶏肉", "トマト"] },
-        { name: "白身魚のソテー", tags: ["白身魚", "魚"] },
-        { name: "豚ロースのソテー", tags: ["豚肉"] },
-        { name: "照り焼きチキンステーキ", tags: ["鶏肉"] },
-        { name: "鶏むね肉のチーズ焼き", tags: ["鶏肉", "チーズ"] },
-        { name: "オムレツ", tags: ["卵"] },
-        { name: "クリーム煮チキン", tags: ["鶏肉", "乳"] },
-      ],
-      sideDishes: [
-        { name: "ポテトサラダ", tags: ["じゃがいも"] },
-        { name: "コールスロー", tags: ["キャベツ"] },
-        { name: "ブロッコリーサラダ", tags: ["ブロッコリー"] },
-        { name: "にんじんラペ", tags: ["にんじん"] },
-        { name: "レタスとツナのサラダ", tags: ["レタス", "ツナ", "魚"] },
-        { name: "マカロニサラダ", tags: ["マカロニ"] },
-        { name: "キャベツサラダ", tags: ["キャベツ"] },
-        { name: "コーンバター", tags: ["コーン", "乳"] },
-        { name: "温野菜サラダ", tags: ["野菜"] },
-        { name: "トマトサラダ", tags: ["トマト"] },
-      ],
-      soups: [
-        { name: "コンソメスープ", tags: [] },
-        { name: "玉ねぎスープ", tags: ["玉ねぎ"] },
-        { name: "キャベツのスープ", tags: ["キャベツ"] },
-        { name: "にんじんスープ", tags: ["にんじん"] },
-        { name: "じゃがいものスープ", tags: ["じゃがいも"] },
-        { name: "きのこスープ", tags: ["きのこ"] },
-        { name: "ベーコンと野菜のスープ", tags: ["豚肉", "肉", "野菜"] },
-        { name: "コーンスープ", tags: ["コーン", "乳"] },
-      ],
-    },
-    中華: {
-      mainDishes: [
-        { name: "麻婆豆腐", tags: ["豆腐", "ひき肉"] },
-        { name: "回鍋肉", tags: ["豚肉", "キャベツ"] },
-        { name: "青椒肉絲", tags: ["豚肉", "ピーマン"] },
-        { name: "酢豚", tags: ["豚肉"] },
-        { name: "鶏と白菜の中華煮", tags: ["鶏肉", "白菜"] },
-        { name: "八宝菜", tags: ["豚肉", "えび", "白菜"] },
-        { name: "ニラ玉", tags: ["ニラ", "卵"] },
-        { name: "鶏の甘酢炒め", tags: ["鶏肉"] },
-        { name: "豚肉ともやしの中華炒め", tags: ["豚肉", "もやし"] },
-        { name: "豆腐とひき肉の炒め物", tags: ["豆腐", "ひき肉"] },
-        { name: "えびと卵の炒め物", tags: ["えび", "卵"] },
-        { name: "油淋鶏", tags: ["鶏肉"] },
-      ],
-      sideDishes: [
-        { name: "もやしのナムル", tags: ["もやし"] },
-        { name: "春雨サラダ", tags: ["春雨"] },
-        { name: "きゅうりの中華和え", tags: ["きゅうり"] },
-        { name: "トマトの中華だれ", tags: ["トマト"] },
-        { name: "きゅうりのごま和え", tags: ["きゅうり", "ごま"] },
-        { name: "棒棒鶏風サラダ", tags: ["鶏肉", "肉"] },
-        { name: "中華風冷ややっこ", tags: ["豆腐"] },
-        { name: "青菜炒め", tags: ["青菜"] },
-        { name: "ザーサイあえ", tags: ["ザーサイ"] },
-        { name: "豆苗炒め", tags: ["豆苗"] },
-      ],
-      soups: [
-        { name: "卵スープ", tags: ["卵"] },
-        { name: "わかめスープ", tags: ["わかめ"] },
-        { name: "中華風コーンスープ", tags: ["コーン", "卵"] },
-        { name: "中華風わかめスープ", tags: ["わかめ"] },
-        { name: "たまごとねぎのスープ", tags: ["卵", "ねぎ"] },
-        { name: "豆腐スープ", tags: ["豆腐"] },
-        { name: "もやしスープ", tags: ["もやし"] },
-        { name: "中華野菜スープ", tags: ["野菜"] },
-      ],
-    },
-    こってり: {
-      mainDishes: [
-        { name: "チキン南蛮", tags: ["鶏肉", "卵"] },
-        { name: "照りマヨチキン", tags: ["鶏肉", "卵"] },
-        { name: "チーズハンバーグ", tags: ["ひき肉", "チーズ"] },
-        { name: "甘辛だれの唐揚げ", tags: ["鶏肉"] },
-        { name: "豚バラとキャベツの味噌炒め", tags: ["豚肉", "キャベツ"] },
-        { name: "豚のしょうが焼き", tags: ["豚肉"] },
-        { name: "ヤンニョムチキン風", tags: ["鶏肉"] },
-        { name: "甘辛チキン", tags: ["鶏肉"] },
-        { name: "ガーリックチキン", tags: ["鶏肉", "にんにく"] },
-        { name: "味噌だれ豚丼風おかず", tags: ["豚肉"] },
-        { name: "こってり鶏の照り焼き", tags: ["鶏肉"] },
-        { name: "タルタルチキン", tags: ["鶏肉", "卵"] },
-      ],
-      sideDishes: [
-        { name: "ポテトサラダ", tags: ["じゃがいも"] },
-        { name: "マカロニサラダ", tags: ["マカロニ"] },
-        { name: "キャベツのサラダ", tags: ["キャベツ"] },
-        { name: "コーン入りサラダ", tags: ["コーン"] },
-        { name: "ブロッコリーサラダ", tags: ["ブロッコリー"] },
-        { name: "フライドポテト風じゃがいも", tags: ["じゃがいも"] },
-        { name: "たまごサラダ", tags: ["卵"] },
-        { name: "ツナサラダ", tags: ["ツナ", "魚"] },
-        { name: "かぼちゃサラダ", tags: ["かぼちゃ"] },
-        { name: "コールスロー", tags: ["キャベツ"] },
-      ],
-      soups: [
-        { name: "たまごスープ", tags: ["卵"] },
-        { name: "玉ねぎスープ", tags: ["玉ねぎ"] },
-        { name: "豆腐の味噌汁", tags: ["豆腐"] },
-        { name: "わかめスープ", tags: ["わかめ"] },
-        { name: "じゃがいもの味噌汁", tags: ["じゃがいも"] },
-        { name: "コンソメスープ", tags: [] },
-        { name: "コーンスープ", tags: ["コーン", "乳"] },
-        { name: "キャベツスープ", tags: ["キャベツ"] },
-      ],
-    },
-    あっさり: {
-      mainDishes: [
-        { name: "鶏ささみの梅しそ焼き", tags: ["鶏肉", "梅"] },
-        { name: "白身魚の蒸し焼き", tags: ["白身魚", "魚"] },
-        { name: "豚しゃぶサラダ", tags: ["豚肉"] },
-        { name: "鮭の酒蒸し", tags: ["鮭", "魚"] },
-        { name: "鶏むね肉のみぞれ煮", tags: ["鶏肉", "大根"] },
-        { name: "湯豆腐", tags: ["豆腐"] },
-        { name: "白だし豚しゃぶ", tags: ["豚肉"] },
-        { name: "鶏むね肉の和風蒸し", tags: ["鶏肉"] },
-        { name: "豆腐ハンバーグ", tags: ["豆腐", "ひき肉"] },
-        { name: "鮭のホイル焼き", tags: ["鮭", "魚"] },
-        { name: "鶏と大根のやさし煮", tags: ["鶏肉", "大根"] },
-        { name: "ささみの塩レモン焼き", tags: ["鶏肉", "レモン"] },
-      ],
-      sideDishes: [
-        { name: "冷ややっこ", tags: ["豆腐"] },
-        { name: "小松菜のおひたし", tags: ["小松菜"] },
-        { name: "きゅうりの酢の物", tags: ["きゅうり"] },
-        { name: "トマトの和風サラダ", tags: ["トマト"] },
-        { name: "ほうれん草のおひたし", tags: ["ほうれん草"] },
-        { name: "白菜のおかか和え", tags: ["白菜"] },
-        { name: "大根サラダ", tags: ["大根"] },
-        { name: "わかめときゅうりの酢の物", tags: ["わかめ", "きゅうり"] },
-        { name: "オクラのおひたし", tags: ["オクラ"] },
-        { name: "もやしのさっぱり和え", tags: ["もやし"] },
-      ],
-      soups: [
-        { name: "白菜の味噌汁", tags: ["白菜"] },
-        { name: "豆腐の味噌汁", tags: ["豆腐"] },
-        { name: "大根のすまし汁", tags: ["大根"] },
-        { name: "豆腐とねぎのすまし汁", tags: ["豆腐", "ねぎ"] },
-        { name: "なめこの味噌汁", tags: ["なめこ", "きのこ"] },
-        { name: "わかめのすまし汁", tags: ["わかめ"] },
-        { name: "玉ねぎの味噌汁", tags: ["玉ねぎ"] },
-        { name: "きのこすまし汁", tags: ["きのこ"] },
-      ],
-    },
-    おまかせ: {
-      mainDishes: [
-        { name: "鶏の照り焼き", tags: ["鶏肉"] },
-        { name: "豚のしょうが焼き", tags: ["豚肉"] },
-        { name: "鮭のムニエル", tags: ["鮭", "魚"] },
-        { name: "ハンバーグ", tags: ["ひき肉"] },
-        { name: "麻婆豆腐", tags: ["豆腐", "ひき肉"] },
-        { name: "肉じゃが", tags: ["牛肉", "じゃがいも", "玉ねぎ"] },
-        { name: "チキンソテー", tags: ["鶏肉"] },
-        { name: "酢豚", tags: ["豚肉"] },
-        { name: "鮭の塩焼き", tags: ["鮭", "魚"] },
-        { name: "チキン南蛮", tags: ["鶏肉", "卵"] },
-        { name: "鶏むね肉のみぞれ煮", tags: ["鶏肉", "大根"] },
-        { name: "青椒肉絲", tags: ["豚肉", "ピーマン"] },
-      ],
-      sideDishes: [
-        { name: "ポテトサラダ", tags: ["じゃがいも"] },
-        { name: "ほうれん草のおひたし", tags: ["ほうれん草"] },
-        { name: "コールスロー", tags: ["キャベツ"] },
-        { name: "かぼちゃサラダ", tags: ["かぼちゃ"] },
-        { name: "もやしのナムル", tags: ["もやし"] },
-        { name: "冷ややっこ", tags: ["豆腐"] },
-        { name: "きんぴらごぼう", tags: ["ごぼう"] },
-        { name: "ブロッコリーサラダ", tags: ["ブロッコリー"] },
-        { name: "きゅうりの酢の物", tags: ["きゅうり"] },
-        { name: "にんじんラペ", tags: ["にんじん"] },
-      ],
-      soups: [
-        { name: "豆腐の味噌汁", tags: ["豆腐"] },
-        { name: "コンソメスープ", tags: [] },
-        { name: "卵スープ", tags: ["卵"] },
-        { name: "わかめの味噌汁", tags: ["わかめ"] },
-        { name: "玉ねぎスープ", tags: ["玉ねぎ"] },
-        { name: "白菜の味噌汁", tags: ["白菜"] },
-        { name: "コーンスープ", tags: ["コーン", "乳"] },
-        { name: "中華野菜スープ", tags: ["野菜"] },
-      ],
-    },
-  };
-}, []);
-      const getRandomItem = <T,>(items: T[]): T => {
-        return items[Math.floor(Math.random() * items.length)];
-      };
-
-      const normalizeFoodOptions = (
-        items: MaybeTaggedFoodOption[]
-      ): NamedFoodOption[] => {
-        return items.map((item) => {
-          if (typeof item === "string") {
-            return {
-              name: item,
-              tags: [],
-            };
-          }
-      
-          return item;
-        });
-      };
           const avoidIngredientList = avoidIngredients
             .split(/[、,\s]+/)
             .map((item) => item.trim())
@@ -406,123 +109,146 @@ const handleDecideMenu = (menu: MenuItem) => {
   .map((item) => item.trim())
   .filter(Boolean);
 
-          const generateMenus = (): MenuItem[] => {
-            const now = new Date().toISOString();
-            const selectedMood = dishOptions[mood] || dishOptions["おまかせ"];
-            const usedCombinations = new Set<string>();
-
-            const filteredMainDishes = selectedMood.mainDishes.filter((dish) => {
-                return !dish.tags.some((tag) => avoidIngredientList.includes(tag));
-              });
-
-              const preferredMainDishes = filteredMainDishes.filter((dish) =>
-                dish.tags.some((tag) => preferredIngredientList.includes(tag))
-              );
-              
-              if (filteredMainDishes.length === 0) {
-                return [];
-              }
-              
-              const normalizedSideDishes = normalizeFoodOptions(selectedMood.sideDishes);
-              const normalizedSoups = normalizeFoodOptions(selectedMood.soups);
-              
-              const filteredSideDishes = normalizedSideDishes.filter((dish) => {
-                return !dish.tags.some((tag) => avoidIngredientList.includes(tag));
-              });
-
-              const filteredSoups = normalizedSoups.filter((soup) => {
-                return !soup.tags.some((tag) => avoidIngredientList.includes(tag));
-              });
-
-              const preferredSideDishes = filteredSideDishes.filter((dish) =>
-                dish.tags.some((tag) => preferredIngredientList.includes(tag))
-              );
-              
-              const preferredSoups = filteredSoups.filter((soup) =>
-                soup.tags.some((tag) => preferredIngredientList.includes(tag))
-              );
-              
-              const hasPreferredMatch =
-                preferredIngredientList.length === 0 ||
-                preferredMainDishes.length > 0 ||
-                preferredSideDishes.length > 0 ||
-                preferredSoups.length > 0;
-
-                if (!hasPreferredMatch) {
-                return [];
-                }
-              
-              if (filteredSideDishes.length === 0 || filteredSoups.length === 0) {
-                return [];
-              }
-
-                  console.log("avoidIngredientList", avoidIngredientList);
-                  console.log(
-                    "selectedMood.mainDishes",
-                    selectedMood.mainDishes.map((dish) => ({
-                      name: dish.name,
-                      tags: dish.tags,
-                    }))
-                  );
-                  console.log(
-                    "filteredMainDishes",
-                    filteredMainDishes.map((dish) => ({
-                      name: dish.name,
-                      tags: dish.tags,
-                    }))
-                  );
-          
-            return Array.from({ length: 3 }).map((_, index) => {
-              let mainDish = "";
-              let sideDish = "";
-              let soup = "";
-              let combinationKey = "";
-          
-              do {
-                const mainSource =
-                  preferredMainDishes.length > 0 ? preferredMainDishes : filteredMainDishes;
-                const sideSource =
-                  preferredSideDishes.length > 0 ? preferredSideDishes : filteredSideDishes;
-                const soupSource =
-                  preferredSoups.length > 0 ? preferredSoups : filteredSoups;
-              
-                const selectedMainDish = getRandomItem(mainSource);
-                const selectedSideDish = getRandomItem(sideSource);
-                const selectedSoup = getRandomItem(soupSource);
-              
-                mainDish = selectedMainDish.name;
-                sideDish = selectedSideDish.name;
-                soup = selectedSoup.name;
-                combinationKey = `${mainDish}-${sideDish}-${soup}`;
-              } while (usedCombinations.has(combinationKey));
-          
-              usedCombinations.add(combinationKey);
-          
-              return {
-                id: `${mainDish}-${sideDish}-${soup}-${index}-${refreshCount}`,
-                title: `${mood === "おまかせ" ? "おすすめ" : mood}の献立`,
-                mainDish,
-                sideDish,
-                soup,
-                estimatedTime: `${cookingTime}分`,
-                budgetComment: budgetLevel === "節約" ? "節約寄り" : "ふつう",
-                nutritionComment:
-                  "主菜・副菜・汁物を組み合わせて、バランスよくまとまりやすい献立です。",
-                reason: avoidIngredients.trim()
-                  ? `「${avoidIngredients}」を避けやすい候補を考えながら、組み合わせで作った献立です。`
-                  : "今の条件に合わせて、組み合わせで作った献立です。",
-                createdAt: now,
-                sourceConditions: {
-                    familySize,
-                    cookingTime,
-                    budgetLevel,
-                    avoidIngredients,
-                    preferredIngredients,
-                    mood,
-                  },
-              };
-            });
-          };
+  const generateMenus = (): MenuItem[] => {
+    const now = new Date().toISOString();
+    const usedCombinations = new Set<string>();
+  
+    const moodMatched = (dish: DishData) => {
+      return mood === "おまかせ" || dish.moods.includes(mood as DishData["moods"][number]);
+    };
+  
+    const budgetMatched = (dish: DishData) => {
+      if (budgetLevel === "節約") {
+        return dish.budgetLevel === "節約";
+      }
+  
+      return true;
+    };
+  
+    const cookingTimeMatched = (dish: DishData) => {
+      return dish.cookingTime <= Number(cookingTime);
+    };
+  
+    const avoidMatched = (dish: DishData) => {
+      return !dish.tags.some((tag) => avoidIngredientList.includes(tag));
+    };
+  
+    const countPreferredMatches = (dish: DishData) => {
+      if (preferredIngredientList.length === 0) {
+        return 0;
+      }
+  
+      return dish.tags.filter((tag) => preferredIngredientList.includes(tag)).length;
+    };
+  
+    const buildCandidates = (dishes: DishData[]) => {
+      const filtered = dishes.filter(
+        (dish) =>
+          moodMatched(dish) &&
+          budgetMatched(dish) &&
+          cookingTimeMatched(dish) &&
+          avoidMatched(dish)
+      );
+  
+      if (preferredIngredientList.length === 0) {
+        return filtered;
+      }
+  
+      const preferredMatched = filtered
+        .map((dish) => ({
+          dish,
+          score: countPreferredMatches(dish),
+        }))
+        .filter((item) => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map((item) => item.dish);
+  
+      return preferredMatched.length > 0 ? preferredMatched : filtered;
+    };
+  
+    const mainCandidates = buildCandidates(MAIN_DISHES);
+    const sideCandidates = buildCandidates(SIDE_DISHES);
+    const soupCandidates = buildCandidates(SOUP_DISHES);
+  
+    if (
+      mainCandidates.length === 0 ||
+      sideCandidates.length === 0 ||
+      soupCandidates.length === 0
+    ) {
+      return [];
+    }
+  
+    const getRandomItem = <T,>(items: T[]): T => {
+      return items[Math.floor(Math.random() * items.length)];
+    };
+  
+    const nextMenus: MenuItem[] = [];
+  
+    for (let index = 0; index < 3; index++) {
+      let combinationKey = "";
+      let selectedMain: DishData | null = null;
+      let selectedSide: DishData | null = null;
+      let selectedSoup: DishData | null = null;
+      let guard = 0;
+  
+      do {
+        selectedMain = getRandomItem(mainCandidates);
+        selectedSide = getRandomItem(sideCandidates);
+        selectedSoup = getRandomItem(soupCandidates);
+  
+        combinationKey = `${selectedMain.id}-${selectedSide.id}-${selectedSoup.id}`;
+        guard += 1;
+  
+        if (guard > 20) {
+          break;
+        }
+      } while (usedCombinations.has(combinationKey));
+  
+      if (!selectedMain || !selectedSide || !selectedSoup) {
+        continue;
+      }
+  
+      usedCombinations.add(combinationKey);
+  
+      nextMenus.push({
+        id: `${selectedMain.id}-${selectedSide.id}-${selectedSoup.id}-${index}-${refreshCount}`,
+        title: `${mood === "おまかせ" ? "おすすめ" : mood}の献立`,
+        mainDish: selectedMain.name,
+        sideDish: selectedSide.name,
+        soup: selectedSoup.name,
+        estimatedTime: `${Math.max(
+          selectedMain.cookingTime,
+          selectedSide.cookingTime,
+          selectedSoup.cookingTime
+        )}分`,
+        budgetComment:
+          selectedMain.budgetLevel === "節約" &&
+          selectedSide.budgetLevel === "節約" &&
+          selectedSoup.budgetLevel === "節約"
+            ? "節約寄り"
+            : "ふつう",
+        nutritionComment:
+          "主菜・副菜・汁物を組み合わせて、バランスよくまとまりやすい献立です。",
+        reason:
+          preferredIngredientList.length > 0
+            ? `入れたい食材を意識しながら、条件に合う組み合わせで作った献立です。`
+            : avoidIngredients.trim()
+            ? `避けたい食材を外しながら、条件に合う組み合わせで作った献立です。`
+            : "今の条件に合わせて、データベースから組み合わせた献立です。",
+        createdAt: now,
+        sourceConditions: {
+          familySize,
+          cookingTime,
+          budgetLevel,
+          avoidIngredients,
+          preferredIngredients,
+          mood,
+        },
+      });
+    }
+  
+    return nextMenus;
+  };
 
           const convertAiMenusToMenuItems = (
             aiMenus: GeneratedMenuFromAI[]
@@ -723,8 +449,29 @@ const handleDecideMenu = (menu: MenuItem) => {
             fetchAllReasons();
           }, [menus, familySize, cookingTime, budgetLevel, avoidIngredients, mood]);
 
+          useEffect(() => {
+            if (menus.length === 0) {
+              setMenuImageMap({});
+              return;
+            }
           
-
+            try {
+              const nextMap = menus.reduce<Record<string, string>>((acc, menu) => {
+                const matchedDish = DISHES.find((dish) => dish.name === menu.mainDish);
+          
+                if (matchedDish?.imageUrl) {
+                  acc[menu.id] = matchedDish.imageUrl;
+                }
+          
+                return acc;
+              }, {});
+          
+              setMenuImageMap(nextMap);
+            } catch (error) {
+              console.error("DB画像の取得に失敗しました", error);
+              setMenuImageMap({});
+            }
+          }, [menus]);
           useEffect(() => {
             try {
               const existing = localStorage.getItem("menuHistory");
@@ -888,6 +635,20 @@ showToast("保存しました", "success");
                 return;
               }
           
+              const dbRecipe = buildRecipeFromDb({
+                mainDish: menu.mainDish,
+                sideDish: menu.sideDish,
+                soup: menu.soup,
+              });
+          
+              if (dbRecipe) {
+                setRecipeStepsMap((prev) => ({
+                  ...prev,
+                  [menu.id]: dbRecipe,
+                }));
+                return;
+              }
+          
               setLoadingRecipeId(menu.id);
           
               const response = await fetch("/api/menu-recipe", {
@@ -928,6 +689,88 @@ showToast("保存しました", "success");
             }
           };
 
+          const renderIngredientGroups = (
+            groups: { label: string; items: { name: string; amount: string }[] }[] = [],
+            fallbackItems: { name: string; amount: string }[] = [],
+            menuId: string,
+            sectionKey: "main" | "side" | "soup"
+          ) => {
+            if (groups.length > 0) {
+              return (
+                <div className="mb-3 space-y-3">
+                  {groups.map((group, groupIndex) => (
+                    <div
+                      key={`${menuId}-${sectionKey}-group-${group.label}-${groupIndex}`}
+                      className="rounded-2xl bg-[#fff7ed] px-3 py-3"
+                    >
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="rounded-full bg-orange-100 px-2 py-1 text-xs font-bold text-orange-700">
+                          {group.label}
+                        </span>
+                      </div>
+          
+                      <ul className="space-y-2">
+                        {group.items.map((item, itemIndex) => (
+                          <li
+                            key={`${menuId}-${sectionKey}-group-item-${groupIndex}-${itemIndex}`}
+                            className="rounded-xl bg-white px-3 py-2"
+                          >
+                            {item.name}：{item.amount}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              );
+            }
+          
+            return (
+              <ul className="mb-3 space-y-2">
+                {fallbackItems.map((item, ingredientIndex) => (
+                  <li
+                    key={`${menuId}-${sectionKey}-ingredient-${ingredientIndex}`}
+                    className="rounded-xl bg-[#fff7ed] px-3 py-2"
+                  >
+                    {item.name}：{item.amount}
+                  </li>
+                ))}
+              </ul>
+            );
+          };
+          
+          const getRecipeLabel = (
+            groups: { label: string; items: { name: string; amount: string }[] }[] = []
+          ) => {
+            if (groups.length === 0) {
+              return "材料";
+            }
+          
+            const labels = groups.map((group) => group.label).join("・");
+            return `材料（${labels}）`;
+          };
+
+          const getDishImageUrlByName = (dishName: string) => {
+            const matchedDish = DISHES.find((dish) => dish.name === dishName);
+            return matchedDish?.imageUrl || "";
+          };
+          
+          const renderRecipeDishImage = (dishName: string) => {
+            const imageUrl = getDishImageUrlByName(dishName);
+          
+            if (!imageUrl) {
+              return null;
+            }
+          
+            return (
+              <img
+                src={imageUrl}
+                alt={dishName}
+                className="mb-3 h-50 w-full rounded-2xl object-cover "
+              />
+            );
+          };
+
   const handleRefresh = () => {
     setRefreshCount((prev) => prev + 1);
   };
@@ -935,12 +778,14 @@ showToast("保存しました", "success");
   const handleEditConditions = () => {
     router.push("/create");
   };
+
   const handleRetryWithoutAvoidIngredients = () => {
     const params = new URLSearchParams({
       familySize,
       cookingTime,
       budgetLevel,
       avoidIngredients: "",
+      preferredIngredients,
       mood,
     });
   
@@ -1152,6 +997,18 @@ showToast("保存しました", "success");
                 {menu.title}
               </h2>
 
+              {menuImageMap[menu.id] ? (
+  <img
+    src={menuImageMap[menu.id]}
+    alt={menu.mainDish}
+    className="mb-4 h-48 w-full rounded-[24px] object-cover"
+  />
+) : (
+  <div className="mb-4 flex h-48 w-full items-center justify-center rounded-[24px] bg-pink-50 text-sm text-gray-500">
+    画像を読み込み中...
+  </div>
+)}
+
               <div className="mb-4 space-y-3 text-sm leading-6">
                 <div>
                   <p className="font-semibold text-gray-800">主菜</p>
@@ -1271,19 +1128,19 @@ showToast("保存しました", "success");
     <p className="mb-3 font-semibold text-gray-800">作り方</p>
 
     <div className="space-y-4">
-      <div>
-        <p className="mb-2 font-semibold text-gray-800">主菜：{menu.mainDish}</p>
-        <ul className="mb-3 space-y-2">
-  {recipeStepsMap[menu.id].mainDishIngredients.map((item, ingredientIndex) => (
-    <li
-      key={`${menu.id}-main-ingredient-${ingredientIndex}`}
-      className="rounded-xl bg-[#fff7ed] px-3 py-2"
-    >
-      {item.name}：{item.amount}
-    </li>
-  ))}
-</ul>
-        <ol className="space-y-2">
+    <div>
+  <p className="mb-2 font-semibold text-gray-800">主菜：{menu.mainDish}</p>
+  {renderRecipeDishImage(menu.mainDish)}
+  <p className="mb-2 text-xs font-semibold text-gray-500">
+    {getRecipeLabel(recipeStepsMap[menu.id].mainDishIngredientGroups)}
+  </p>
+  {renderIngredientGroups(
+    recipeStepsMap[menu.id].mainDishIngredientGroups,
+    recipeStepsMap[menu.id].mainDishIngredients,
+    menu.id,
+    "main"
+  )}
+  <ol className="space-y-2">
           {recipeStepsMap[menu.id].mainDishSteps.map((step, stepIndex) => (
             <li
               key={`${menu.id}-main-${stepIndex}`}
@@ -1296,18 +1153,18 @@ showToast("保存しました", "success");
       </div>
 
       <div>
-        <p className="mb-2 font-semibold text-gray-800">副菜：{menu.sideDish}</p>
-        <ul className="mb-3 space-y-2">
-  {recipeStepsMap[menu.id].sideDishIngredients.map((item, ingredientIndex) => (
-    <li
-      key={`${menu.id}-side-ingredient-${ingredientIndex}`}
-      className="rounded-xl bg-[#fff7ed] px-3 py-2"
-    >
-      {item.name}：{item.amount}
-    </li>
-  ))}
-</ul>
-        <ol className="space-y-2">
+  <p className="mb-2 font-semibold text-gray-800">副菜：{menu.sideDish}</p>
+  {renderRecipeDishImage(menu.sideDish)}
+  <p className="mb-2 text-xs font-semibold text-gray-500">
+    {getRecipeLabel(recipeStepsMap[menu.id].sideDishIngredientGroups)}
+  </p>
+  {renderIngredientGroups(
+    recipeStepsMap[menu.id].sideDishIngredientGroups,
+    recipeStepsMap[menu.id].sideDishIngredients,
+    menu.id,
+    "side"
+  )}
+  <ol className="space-y-2">
           {recipeStepsMap[menu.id].sideDishSteps.map((step, stepIndex) => (
             <li
               key={`${menu.id}-side-${stepIndex}`}
@@ -1320,18 +1177,18 @@ showToast("保存しました", "success");
       </div>
 
       <div>
-        <p className="mb-2 font-semibold text-gray-800">汁物：{menu.soup}</p>
-        <ul className="mb-3 space-y-2">
-  {recipeStepsMap[menu.id].soupIngredients.map((item, ingredientIndex) => (
-    <li
-      key={`${menu.id}-soup-ingredient-${ingredientIndex}`}
-      className="rounded-xl bg-[#fff7ed] px-3 py-2"
-    >
-      {item.name}：{item.amount}
-    </li>
-  ))}
-</ul>
-        <ol className="space-y-2">
+  <p className="mb-2 font-semibold text-gray-800">汁物：{menu.soup}</p>
+  {renderRecipeDishImage(menu.soup)}
+  <p className="mb-2 text-xs font-semibold text-gray-500">
+    {getRecipeLabel(recipeStepsMap[menu.id].soupIngredientGroups)}
+  </p>
+  {renderIngredientGroups(
+    recipeStepsMap[menu.id].soupIngredientGroups,
+    recipeStepsMap[menu.id].soupIngredients,
+    menu.id,
+    "soup"
+  )}
+  <ol className="space-y-2">
           {recipeStepsMap[menu.id].soupSteps.map((step, stepIndex) => (
             <li
               key={`${menu.id}-soup-${stepIndex}`}

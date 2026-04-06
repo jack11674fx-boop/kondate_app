@@ -1,50 +1,16 @@
 "use client";
 
+import { DISHES } from "@/lib/menu-data";
+import { buildRecipeFromDb } from "@/lib/menu-recipe-db";
 import { useEffect, useState } from "react";
 import Toast from "@/components/Toast";
+import type {
+  MenuItem,
+  RecipeIngredientItem,
+  RecipeSteps,
+  ShoppingListItem,
+} from "@/lib/menu-types";
 
-type MenuItem = {
-    id: string;
-    title: string;
-    mainDish: string;
-    sideDish: string;
-    soup: string;
-    estimatedTime: string;
-    budgetComment: string;
-    shoppingList?: ShoppingListItem[];
-    nutritionComment: string;
-    reason: string;
-    aiReason?: string;
-    createdAt: string;
-    memo?: string;
-    sourceConditions?: {
-        familySize: string;
-        cookingTime: string;
-        budgetLevel: string;
-        avoidIngredients: string;
-        preferredIngredients: string;
-        mood: string;
-      };
-  };
-
-  type ShoppingListItem = {
-    name: string;
-    amount: string;
-  };
-
-  type RecipeIngredientItem = {
-    name: string;
-    amount: string;
-  };
-  
-  type RecipeSteps = {
-    mainDishIngredients: RecipeIngredientItem[];
-    sideDishIngredients: RecipeIngredientItem[];
-    soupIngredients: RecipeIngredientItem[];
-    mainDishSteps: string[];
-    sideDishSteps: string[];
-    soupSteps: string[];
-  };
 
   type ToastState = {
     message: string;
@@ -272,6 +238,20 @@ const handleEditConditions = (menu: MenuItem) => {
     }
   
     try {
+      const dbRecipe = buildRecipeFromDb({
+        mainDish: menu.mainDish,
+        sideDish: menu.sideDish,
+        soup: menu.soup,
+      });
+  
+      if (dbRecipe) {
+        setRecipeStepsMap((prev) => ({
+          ...prev,
+          [menu.id]: dbRecipe,
+        }));
+        return;
+      }
+  
       setLoadingRecipeId(menu.id);
   
       const response = await fetch("/api/menu-recipe", {
@@ -310,6 +290,88 @@ const handleEditConditions = (menu: MenuItem) => {
     } finally {
       setLoadingRecipeId("");
     }
+  };
+
+  const renderIngredientGroups = (
+    groups: { label: string; items: { name: string; amount: string }[] }[] = [],
+    fallbackItems: { name: string; amount: string }[] = [],
+    menuId: string,
+    sectionKey: "main" | "side" | "soup"
+  ) => {
+    if (groups.length > 0) {
+      return (
+        <div className="mb-3 space-y-3">
+          {groups.map((group, groupIndex) => (
+            <div
+              key={`${menuId}-${sectionKey}-group-${group.label}-${groupIndex}`}
+              className="rounded-2xl bg-[#fff7ed] px-3 py-3"
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <span className="rounded-full bg-orange-100 px-2 py-1 text-xs font-bold text-orange-700">
+                  {group.label}
+                </span>
+              </div>
+  
+              <ul className="space-y-2">
+                {group.items.map((item, itemIndex) => (
+                  <li
+                    key={`${menuId}-${sectionKey}-group-item-${groupIndex}-${itemIndex}`}
+                    className="rounded-xl bg-white px-3 py-2"
+                  >
+                    {item.name}：{item.amount}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      );
+    }
+  
+    return (
+      <ul className="mb-3 space-y-2">
+        {fallbackItems.map((item, ingredientIndex) => (
+          <li
+            key={`${menuId}-${sectionKey}-ingredient-${ingredientIndex}`}
+            className="rounded-xl bg-[#fff7ed] px-3 py-2"
+          >
+            {item.name}：{item.amount}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  
+  const getRecipeLabel = (
+    groups: { label: string; items: { name: string; amount: string }[] }[] = []
+  ) => {
+    if (groups.length === 0) {
+      return "材料";
+    }
+  
+    const labels = groups.map((group) => group.label).join("・");
+    return `材料（${labels}）`;
+  };
+
+  const getDishImageUrlByName = (dishName: string) => {
+    const matchedDish = DISHES.find((dish) => dish.name === dishName);
+    return matchedDish?.imageUrl || "";
+  };
+  
+  const renderRecipeDishImage = (dishName: string) => {
+    const imageUrl = getDishImageUrlByName(dishName);
+  
+    if (!imageUrl) {
+      return null;
+    }
+  
+    return (
+      <img
+        src={imageUrl}
+        alt={dishName}
+        className="mb-3 h-36 w-full rounded-2xl object-cover"
+      />
+    );
   };
 
   const handleToggleShoppingItem = (
@@ -717,16 +779,16 @@ const filteredMenus = currentMenus.filter((menu) => {
     <div className="space-y-4">
       <div>
         <p className="mb-2 font-semibold text-gray-800">主菜：{menu.mainDish}</p>
-        <ul className="mb-3 space-y-2">
-  {recipeStepsMap[menu.id].mainDishIngredients.map((item, ingredientIndex) => (
-    <li
-      key={`${menu.id}-main-ingredient-${ingredientIndex}`}
-      className="rounded-xl bg-[#fff7ed] px-3 py-2"
-    >
-      {item.name}：{item.amount}
-    </li>
-  ))}
-</ul>
+        {renderRecipeDishImage(menu.mainDish)}
+        <p className="mb-2 text-xs font-semibold text-gray-500">
+  {getRecipeLabel(recipeStepsMap[menu.id].mainDishIngredientGroups)}
+</p>
+{renderIngredientGroups(
+  recipeStepsMap[menu.id].mainDishIngredientGroups,
+  recipeStepsMap[menu.id].mainDishIngredients,
+  menu.id,
+  "main"
+)}
         <ol className="space-y-2">
           {recipeStepsMap[menu.id].mainDishSteps.map((step, stepIndex) => (
             <li
@@ -741,16 +803,16 @@ const filteredMenus = currentMenus.filter((menu) => {
 
       <div>
         <p className="mb-2 font-semibold text-gray-800">副菜：{menu.sideDish}</p>
-        <ul className="mb-3 space-y-2">
-  {recipeStepsMap[menu.id].sideDishIngredients.map((item, ingredientIndex) => (
-    <li
-      key={`${menu.id}-side-ingredient-${ingredientIndex}`}
-      className="rounded-xl bg-[#fff7ed] px-3 py-2"
-    >
-      {item.name}：{item.amount}
-    </li>
-  ))}
-</ul>
+        {renderRecipeDishImage(menu.sideDish)}
+        <p className="mb-2 text-xs font-semibold text-gray-500">
+  {getRecipeLabel(recipeStepsMap[menu.id].sideDishIngredientGroups)}
+</p>
+{renderIngredientGroups(
+  recipeStepsMap[menu.id].sideDishIngredientGroups,
+  recipeStepsMap[menu.id].sideDishIngredients,
+  menu.id,
+  "side"
+)}
         <ol className="space-y-2">
           {recipeStepsMap[menu.id].sideDishSteps.map((step, stepIndex) => (
             <li
@@ -765,16 +827,16 @@ const filteredMenus = currentMenus.filter((menu) => {
 
       <div>
         <p className="mb-2 font-semibold text-gray-800">汁物：{menu.soup}</p>
-        <ul className="mb-3 space-y-2">
-  {recipeStepsMap[menu.id].soupIngredients.map((item, ingredientIndex) => (
-    <li
-      key={`${menu.id}-soup-ingredient-${ingredientIndex}`}
-      className="rounded-xl bg-[#fff7ed] px-3 py-2"
-    >
-      {item.name}：{item.amount}
-    </li>
-  ))}
-</ul>
+        {renderRecipeDishImage(menu.soup)}
+        <p className="mb-2 text-xs font-semibold text-gray-500">
+  {getRecipeLabel(recipeStepsMap[menu.id].soupIngredientGroups)}
+</p>
+{renderIngredientGroups(
+  recipeStepsMap[menu.id].soupIngredientGroups,
+  recipeStepsMap[menu.id].soupIngredients,
+  menu.id,
+  "soup"
+)}
         <ol className="space-y-2">
           {recipeStepsMap[menu.id].soupSteps.map((step, stepIndex) => (
             <li
